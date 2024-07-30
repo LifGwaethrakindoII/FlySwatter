@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _dontDestroyOnLoad: 0
-  _debug: 0
+  _debug: 1
   _lineRendererPool:
     _referenceObject: {fileID: 1842238930606117632, guid: 5caac490df71a32428d3c23b2c7c35d5, type: 3}
     _limit: 1000

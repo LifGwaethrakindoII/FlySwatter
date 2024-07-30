@@ -38,7 +38,7 @@ namespace Voidless
 		private static readonly Color COLOR_DEFAULT = Color.white;
 
 		/// <summary>Gets and Sets debug property.</summary>
-		public static bool Debug
+		public static bool debug
 		{
 			get { return Instance._debug; }
 			set { Instance._debug = value; }
@@ -74,7 +74,7 @@ namespace Voidless
 			TextPool.Initialize();
 			coroutines = new Dictionary<int, Coroutine>();
 #endif
-		}
+        }
 
 		/// <summary>Draws Ray.</summary>
 		/// <param name="o">Ray's Origin.</param>
@@ -84,7 +84,7 @@ namespace Voidless
 		public static void DrawRay(Vector3 o, Vector3 d, Color c = default, float t = DEFAULT_WAIT)
 		{
 #if UNITY_EDITOR
-			if(Instance == null || !Debug) return;
+			if(Instance == null || !debug) return;
 
 			PoolLineRenderer lineRenderer = RequestLineRenderer(c);
 			lineRenderer.SetAsRay(o, d);
@@ -100,7 +100,7 @@ namespace Voidless
 		public static void DrawLine(Vector3 a, Vector3 b, Color c = default, float t = DEFAULT_WAIT)
 		{
 #if UNITY_EDITOR
-			if(Instance == null || !Debug) return;
+			if(Instance == null || !debug) return;
 
 			PoolLineRenderer lineRenderer = RequestLineRenderer(c);
 			lineRenderer.SetAsLine(a, b);
@@ -118,7 +118,7 @@ namespace Voidless
 		public static void DrawLine(Vector3 a, Vector3 b, Func<Vector3, Vector3, float, Vector3> f = null, int s = PoolLineRenderer.SAMPLES, Color c = default, float t = DEFAULT_WAIT)
 		{
 #if UNITY_EDITOR
-			if(Instance == null || !Debug) return;
+			if(Instance == null || !debug) return;
 
 			PoolLineRenderer lineRenderer = RequestLineRenderer(c);
 			lineRenderer.SetAsLine(a, b, f, s);
@@ -137,7 +137,7 @@ namespace Voidless
         public static void DrawProjectileProjection(Vector3 p0, Vector3 pf, float t, Vector3 g, int s = PoolLineRenderer.SAMPLES, Color c = default, float w = DEFAULT_WAIT)
 		{
 #if UNITY_EDITOR
-			if(Instance == null || !Debug) return;
+			if(Instance == null || !debug) return;
 
 			PoolLineRenderer lineRenderer = RequestLineRenderer(c);
 			lineRenderer.SetAsProjectileProjection(p0, pf, t, g);
@@ -153,7 +153,7 @@ namespace Voidless
 		public static void DrawSphere(Vector3 p, float r, Color c = default, float t = DEFAULT_WAIT)
 		{
 #if UNITY_EDITOR
-			if(Instance == null || !Debug) return;
+			if(Instance == null || !debug) return;
 
 			PoolPrimitive sphere = RequestSpherePrimitive(p, r, c);
 			Instance.InvokeWaitCoroutine(sphere , t);
@@ -168,7 +168,7 @@ namespace Voidless
 		public static void DrawBox(Vector3 p, Quaternion r, Vector3 s, Color c = default, float t = DEFAULT_WAIT)
 		{
 #if UNITY_EDITOR
-			if(Instance == null || !Debug) return;
+			if(Instance == null || !debug) return;
 
 			PoolPrimitive box = RequestBoxPrimitive(p, r, s, c);
 			Instance.InvokeWaitCoroutine(box , t);
@@ -183,7 +183,7 @@ namespace Voidless
 		public static void DrawCapsule(Vector3 p, Quaternion rotation, float h, float r, Color c = default, float t = DEFAULT_WAIT)
 		{
 #if UNITY_EDITOR
-			if(Instance == null || !Debug) return;
+			if(Instance == null || !debug) return;
 
 			PoolPrimitive capsule = RequestCapsulePrimitive(p, rotation, h, r, c);
 			Instance.InvokeWaitCoroutine(capsule , t);
@@ -198,7 +198,7 @@ namespace Voidless
 		public static void DrawCylinder(Vector3 p, Quaternion rotation, float h, float r, Color c = default, float t = DEFAULT_WAIT)
 		{
 #if UNITY_EDITOR
-			if(Instance == null || !Debug) return;
+			if(Instance == null || !debug) return;
 
 			PoolPrimitive cylinder = RequestCylinderPrimitive(p, rotation, h, r, c);
 			Instance.InvokeWaitCoroutine(cylinder , t);
@@ -213,7 +213,7 @@ namespace Voidless
 		public static void DrawText(Vector3 p, Quaternion r, Func<string> _contentPointer = null, Color c = default, float t = DEFAULT_WAIT)
 		{
 #if UNITY_EDITOR
-			if(Instance == null || !Debug) return;
+			if(Instance == null || !debug) return;
 
 			PoolText text = RequestText(p, r, _contentPointer);
 			Instance.InvokeWaitCoroutine(text, t);
@@ -228,7 +228,7 @@ namespace Voidless
 		public static void DrawText(Vector3 p, Quaternion r, string _content = "", Color c = default, float t = DEFAULT_WAIT)
 		{
 #if UNITY_EDITOR
-			if(Instance == null || !Debug) return;
+			if(Instance == null || !debug) return;
 
 			PoolText text = RequestText(p, r, _content);
 			Instance.InvokeWaitCoroutine(text, t);
@@ -242,7 +242,7 @@ namespace Voidless
         public static void DrawBoxCollider(BoxCollider _boxCollider, Color c = default, float t = DEFAULT_WAIT)
 		{
 #if UNITY_EDITOR
-			if(Instance == null || !Debug) return;
+			if(Instance == null || !debug) return;
 
 			PoolPrimitive box = Instance.BoxPool.Recycle();
 			box.SetColor(c);
@@ -258,7 +258,7 @@ namespace Voidless
 		public static void DrawSphereCollider(SphereCollider _sphereCollider, Color c = default, float t = DEFAULT_WAIT)
 		{
 #if UNITY_EDITOR
-			if(Instance == null || !Debug) return;
+			if(Instance == null || !debug) return;
 
 			PoolPrimitive sphere = Instance.SpherePool.Recycle();
 			sphere.SetColor(c);
@@ -274,7 +274,7 @@ namespace Voidless
 		public static void DrawCapsuleCollider(CapsuleCollider _capsuleCollider, Color c = default, float t = DEFAULT_WAIT)
 		{
 #if UNITY_EDITOR
-			if(Instance == null || !Debug) return;
+			if(Instance == null || !debug) return;
 
 			PoolPrimitive capsule = Instance.CapsulePool.Recycle();
 			capsule.SetColor(c);
@@ -290,7 +290,7 @@ namespace Voidless
 		public static void DrawCylinderCollider(CapsuleCollider _capsuleCollider, Color c = default, float t = DEFAULT_WAIT)
 		{
 #if UNITY_EDITOR
-			if(Instance == null || !Debug) return;
+			if(Instance == null || !debug) return;
 
 			PoolPrimitive cylinder = Instance.CylinderPool.Recycle();
 			cylinder.SetColor(c);
@@ -419,7 +419,7 @@ namespace Voidless
 		public static PoolLineRenderer RequestLineRenderer(Color c = default)
 		{
 #if UNITY_EDITOR
-			if(Instance == null || !Debug) return null;
+			if(Instance == null || !debug) return null;
 
 			PoolLineRenderer lineRenderer = Instance.LineRendererPool.Recycle(Vector3.zero, Quaternion.identity);
 
@@ -532,7 +532,7 @@ namespace Voidless
 		public static PoolText RequestText(Vector3 p, Quaternion r, Func<string> _contentPointer = null, Color c = default)
 		{
 #if UNITY_EDITOR
-			if(Instance == null || !Debug) return null;
+			if(Instance == null || !debug) return null;
 
 			PoolText text = Instance.TextPool.Recycle(p, r);
 
@@ -553,7 +553,7 @@ namespace Voidless
 		public static PoolText RequestText(Vector3 p, Quaternion r, string _content = "", Color c = default)
 		{
 #if UNITY_EDITOR
-			if(Instance == null || !Debug) return null;
+			if(Instance == null || !debug) return null;
 
 			PoolText text = Instance.TextPool.Recycle(p, r);
 

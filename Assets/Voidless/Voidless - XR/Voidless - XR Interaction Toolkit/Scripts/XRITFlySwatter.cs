@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,7 +11,9 @@ namespace Voidless.XRIT
     public class XRITFlySwatter : MonoBehaviour
     {
         [SerializeField] private XRGrabInteractable _grabInteractable;
+        [SerializeField] private Collider _hitCollider;
         [SerializeField] private TrailRenderer _swingRenderer;
+        [SerializeField][Range(0.0f, 1.0f)] private float _forceScalarThreshold;
         [SerializeField] private float _minVelocityMagnitude;
         [SerializeField] private float _maxVelocityMagnitude;
         [SerializeField] private float _maxSwingForce;
@@ -23,7 +26,12 @@ namespace Voidless.XRIT
         /// <summary>Gets grabInteractable property.</summary>
         public XRGrabInteractable grabInteractable { get { return _grabInteractable; } }
 
+        public Collider hitCollider { get { return _hitCollider; } }
+
         public TrailRenderer swingRenderer { get { return _swingRenderer; } }
+
+        /// <summary>Gets forceScalarThreshold property.</summary>
+        public float forceScalarThreshold { get { return _forceScalarThreshold; } }
 
         public float minVelocityMagnitude { get { return _minVelocityMagnitude; } }
 
@@ -75,6 +83,44 @@ namespace Voidless.XRIT
             if(!grabInteractable.TryGetComponent<Rigidbody>(out _rigidbody)) TryGetComponent<Rigidbody>(out _rigidbody);
         }
 
+        private void TryApplyForce(Collision _collision, float _forceScalar)
+        {
+            Debug.Log("[XRITFlySwatter] Trying to apply a force scalar of: " + _forceScalar);
+        }
+
+        /// <summary>Callback invoked when the Hit Collider enters collision.</summary>
+        /// <param name="_collision">Collision Data</param>
+        /// <param name="_eventType">Type of event</param>
+        /// <param name="_ID">ID of the HitCollider</param>
+        private void OnHitColliderEvent(Collision _collision, HitColliderEventTypes _eventType, int _ID)
+        {
+            Debug.Log("[XRITFlySwatter] Collision event of type " + _eventType.ToString());
+
+            switch (_eventType)
+            {
+                case HitColliderEventTypes.Enter:
+                    Vector3 normalA = hitCollider.transform.forward;
+                    Vector3 normalB = -normalA;
+
+                    foreach(ContactPoint contact in _collision.contacts)
+                    {
+                        Vector3 contactNormal = contact.normal;
+                        float dotA = Vector3.Dot(contactNormal, normalA);   
+                        float dotB = Vector3.Dot(contactNormal, normalB);   
+                        float forceScalar = Mathf.Max(Mathf.Abs(dotA), Mathf.Abs(dotB));
+
+                        if(forceScalar > forceScalarThreshold) forceScalar = 1.0f;
+
+                        VisualDebug.DrawSphere(contact.point, 0.05f, VColor.orange);
+                        VisualDebug.DrawRay(contact.point, contactNormal * 0.2f, VColor.orange);
+                        VisualDebug.DrawRay(hitCollider.transform.position, normalA * 0.2f, Color.blue);
+                        VisualDebug.DrawRay(hitCollider.transform.position, normalB * 0.2f, Color.cyan);
+                        TryApplyForce(_collision, forceScalar);
+                    }
+                break;
+            }
+        }
+
         private void OnSelectEnter(SelectEnterEventArgs a)
         {
             swingRenderer.gameObject.SetActive(true);
@@ -88,16 +134,37 @@ namespace Voidless.XRIT
         /// <summary>Updates XRFlySwatter's instance at each frame.</summary>
         private void Update()
         {
-            Debug.Log("Velocity: " + GetVelocity() + ", Angular Velocity: " + GetAngularVelocity());
+            //Debug.Log("Velocity: " + GetVelocity() + ", Angular Velocity: " + GetAngularVelocity());
         }
 
         /// <summary>Event triggered when this Collider/Rigidbody begun having contact with another Collider/Rigidbody.</summary>
         /// <param name="col">The Collision data associated with this collision Event.</param>
-        private void OnCollisionEnter(Collision col)
+        private void OnCollisionEnter(Collision _collision)
         {
-            GameObject obj = col.gameObject;
-    
-            Debug.Log("[XRFlySwatter] Entered collision with " + obj.name + " with a velocity magnitude of: " + GetVelocitySqrMagnitude() + " and a force of: " + GetCurrentSwingForce());
+            GameObject obj = _collision.gameObject;
+
+            //Debug.Log("[XRFlySwatter] Entered collision with " + obj.name + " with a velocity magnitude of: " + GetVelocitySqrMagnitude() + " and a force of: " + GetCurrentSwingForce());
+
+            Vector3 normalA = hitCollider.transform.forward;
+            Vector3 normalB = -normalA;
+
+            foreach (ContactPoint contact in _collision.contacts)
+            {
+                if(contact.thisCollider != hitCollider) continue;
+
+                Vector3 contactNormal = contact.normal;
+                float dotA = Vector3.Dot(contactNormal, normalA);
+                float dotB = Vector3.Dot(contactNormal, normalB);
+                float forceScalar = Mathf.Max(Mathf.Abs(dotA), Mathf.Abs(dotB));
+
+                if (forceScalar > forceScalarThreshold) forceScalar = 1.0f;
+
+                VisualDebug.DrawSphere(contact.point, 0.05f, VColor.orange);
+                VisualDebug.DrawRay(contact.point, contactNormal * 0.2f, VColor.orange);
+                VisualDebug.DrawRay(hitCollider.transform.position, normalA * 0.2f, Color.blue);
+                VisualDebug.DrawRay(hitCollider.transform.position, normalB * 0.2f, Color.cyan);
+                TryApplyForce(_collision, forceScalar);
+            }
         }
 
         public Vector3 GetVelocity()

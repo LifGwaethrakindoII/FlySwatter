@@ -58,7 +58,7 @@ MonoBehaviour:
   _dontDestroyOnLoad: 0
   _colorHash:
     _hashType: 1
-    _key: _BaseColor
+    _key: _Color
 --- !u!23 &8223971016076349959
 MeshRenderer:
   m_ObjectHideFlags: 0

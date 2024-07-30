@@ -49,7 +49,7 @@ MonoBehaviour:
   _dontDestroyOnLoad: 0
   _colorHash:
     _hashType: 1
-    _key: _BaseColor
+    _key: _Color
 --- !u!120 &563892089079293531
 LineRenderer:
   m_ObjectHideFlags: 0
