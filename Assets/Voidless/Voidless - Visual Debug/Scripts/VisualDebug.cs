@@ -87,7 +87,10 @@ namespace Voidless
 			if(Instance == null || !debug) return;
 
 			PoolLineRenderer lineRenderer = RequestLineRenderer(c);
-			lineRenderer.SetAsRay(o, d);
+
+            if (lineRenderer == null) return;
+
+            lineRenderer.SetAsRay(o, d);
 			Instance.InvokeWaitCoroutine(lineRenderer , t);
 #endif
 		}
@@ -103,7 +106,10 @@ namespace Voidless
 			if(Instance == null || !debug) return;
 
 			PoolLineRenderer lineRenderer = RequestLineRenderer(c);
-			lineRenderer.SetAsLine(a, b);
+
+            if (lineRenderer == null) return;
+
+            lineRenderer.SetAsLine(a, b);
 			Instance.InvokeWaitCoroutine(lineRenderer , t);
 #endif
 		}
@@ -121,6 +127,9 @@ namespace Voidless
 			if(Instance == null || !debug) return;
 
 			PoolLineRenderer lineRenderer = RequestLineRenderer(c);
+
+			if(lineRenderer == null) return;
+
 			lineRenderer.SetAsLine(a, b, f, s);
 			Instance.InvokeWaitCoroutine(lineRenderer , t);
 #endif
@@ -140,7 +149,10 @@ namespace Voidless
 			if(Instance == null || !debug) return;
 
 			PoolLineRenderer lineRenderer = RequestLineRenderer(c);
-			lineRenderer.SetAsProjectileProjection(p0, pf, t, g);
+
+            if (lineRenderer == null) return;
+
+            lineRenderer.SetAsProjectileProjection(p0, pf, t, g);
 			Instance.InvokeWaitCoroutine(lineRenderer , w);
 #endif
 		}
@@ -156,7 +168,7 @@ namespace Voidless
 			if(Instance == null || !debug) return;
 
 			PoolPrimitive sphere = RequestSpherePrimitive(p, r, c);
-			Instance.InvokeWaitCoroutine(sphere , t);
+			if(sphere != null) Instance.InvokeWaitCoroutine(sphere , t);
 #endif
 		}
 

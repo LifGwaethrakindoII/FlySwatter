@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
@@ -86,6 +87,10 @@ namespace Voidless.XRIT
         private void TryApplyForce(Collision _collision, float _forceScalar)
         {
             Debug.Log("[XRITFlySwatter] Trying to apply a force scalar of: " + _forceScalar);
+            //if (_forceScalar < 0.6f) return;
+            PoolGameObject poolObject = _collision.collider.GetComponentInParent<PoolGameObject>();
+            if (poolObject == null) return;
+            poolObject.OnObjectDeactivation();
         }
 
         /// <summary>Callback invoked when the Hit Collider enters collision.</summary>

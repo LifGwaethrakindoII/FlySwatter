@@ -3,9 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using GUIElement = Voidless.GUIElement;
+
 namespace Voidless
 {
-public class PoolUIElement : UIElement, IPoolObject
+public class PoolGUIElement : GUIElement, IPoolObject
 {
 	public event OnPoolObjectEvent onPoolObjectEvent;
 

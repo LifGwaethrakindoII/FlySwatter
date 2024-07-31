@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace Voidless
 {
-public class UIElement : MonoBehaviour
+public class GUIElement : MonoBehaviour
 {
 	private RectTransform _rectTransform; 	/// <summary>RectTransform Component.</summary>
 

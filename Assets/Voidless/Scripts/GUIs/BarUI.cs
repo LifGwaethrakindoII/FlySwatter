@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace Voidless
 {
-public class BarUI : UIElement
+public class BarUI : GUIElement
 {
 	[SerializeField] private RectTransform _mainBar; 			/// <summary>Main Bar.</summary>
 	[SerializeField] private float _positiveDisplacementSpeed; 	/// <summary>Positive Displacement's Speed.</summary>

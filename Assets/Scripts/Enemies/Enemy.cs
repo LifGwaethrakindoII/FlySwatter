@@ -9,9 +9,15 @@ namespace Voidless.FlySwatter
     {
         public const float SQRDISTANCE_DESTINY = 0.2f;
 
+        [SerializeField] private float _healthThreshold;
+        [SerializeField] private float _hungerThreshold;
+        [SerializeField] private float _ageThreshold;
         private SteeringVehicle _vehicle;
         private int _state;
         private int _previousState;
+        private float _hunger;
+        private float _age;
+        protected Coroutine currentRoutine;
 
         public SteeringVehicle vehicle
         {

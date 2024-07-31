@@ -4,6 +4,42 @@
 		"selected_items":
 		[
 			[
+				"curre",
+				"currentTarget"
+			],
+			[
+				"sq",
+				"sqrMagnitude"
+			],
+			[
+				"ac",
+				"action"
+			],
+			[
+				"actio",
+				"action"
+			],
+			[
+				"GOAP",
+				"GOAPAction"
+			],
+			[
+				"Seria",
+				"SerializeField"
+			],
+			[
+				"Seriali",
+				"SerializeField"
+			],
+			[
+				"force",
+				"forceScalarThreshold"
+			],
+			[
+				"con",
+				"contactNormal"
+			],
+			[
 				"Node",
 				"NodeResult"
 			],
@@ -98,10 +134,6 @@
 			[
 				"Dialo",
 				"dialogue"
-			],
-			[
-				"curre",
-				"currentNode"
 			],
 			[
 				"choi",
@@ -214,10 +246,6 @@
 			[
 				"Dia",
 				"DialogueNode"
-			],
-			[
-				"Seria",
-				"SerializeField"
 			],
 			[
 				"Sr",
@@ -486,51 +514,11 @@
 			[
 				"VCameraR",
 				"VCameraRotationFollowModule"
-			],
-			[
-				"enal",
-				"_enabledModules"
-			],
-			[
-				"VC",
-				"VCamera"
-			],
-			[
-				"V",
-				"VVector3"
-			],
-			[
-				"_",
-				"_camera"
-			],
-			[
-				"PATH_",
-				"PATH_FOLLOWMODULE"
-			],
-			[
-				"PATH",
-				"PATH_ROTATIONFOLLOWMODULE"
-			],
-			[
-				"VCa",
-				"VCamera"
 			]
 		]
 	},
 	"buffers":
 	[
-		{
-			"file": "Assets/Voidless/Scripts/Audio/FiniteStateAudioClip.cs",
-			"settings":
-			{
-				"buffer_size": 3750,
-				"encoding": "UTF-8 with BOM",
-				"line_ending": "Windows"
-			},
-			"undo_stack":
-			[
-			]
-		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -580,9 +568,25 @@
 	},
 	"expanded_folders":
 	[
+		"/D/My Documents/Unity/Unity Projects/FlySwatter/Assets/Scripts",
+		"/D/My Documents/Unity/Unity Projects/FlySwatter/Assets/Scripts/Enemies",
+		"/D/My Documents/Unity/Unity Projects/FlySwatter/Assets/Voidless"
 	],
 	"file_history":
 	[
+		"/D/My Documents/Unity/Unity Projects/FlySwatter/Assets/Voidless/Scripts/Hit-Boxes/HitCollider.cs",
+		"/D/My Documents/Unity/Unity Projects/FlySwatter/Assets/Voidless/Voidless - AI/GOAP/Scripts/Simple GOAP/GOAPAction.cs",
+		"/D/My Documents/Unity/Unity Projects/FlySwatter/Assets/Voidless/Voidless - AI/GOAP/Scripts/Simple GOAP/GOAPPlanner.cs",
+		"/D/My Documents/Unity/Unity Projects/FlySwatter/Assets/Voidless/Voidless - AI/GOAP/Scripts/Simple GOAP/GOAPGoal.cs",
+		"/D/My Documents/Unity/Unity Projects/FlySwatter/Assets/Voidless/Voidless - XR/Voidless - XR Interaction Toolkit/Scripts/XRITFlySwatter.cs",
+		"/D/My Documents/Unity/Unity Projects/FlySwatter/Assets/Voidless/Voidless - AI/Steering Behaviors/Scripts/SteeringVehicle.cs",
+		"/D/My Documents/Unity/Unity Projects/FlySwatter/Assets/Voidless/Scripts/Voidless Extensions/VGizmos.cs",
+		"/D/My Documents/Unity/Unity Projects/FlySwatter/Assets/Voidless/Scripts/GUIs/FloatingGUIElement.cs",
+		"/D/My Documents/Unity/Unity Projects/FlySwatter/Assets/Scripts/Enemies/FlyEnemy.cs",
+		"/D/My Documents/Unity/Unity Projects/FlySwatter/Assets/Voidless/Scripts/Voidless Extensions/VVector3.cs",
+		"/D/My Documents/Unity/Unity Projects/FlySwatter/Assets/Scripts/Enemies/Enemy.cs",
+		"/D/My Documents/Unity/Unity Projects/FlySwatter/Assets/Voidless/Scripts/Voidless Extensions/VBounds.cs",
+		"/D/My Documents/Unity/Unity Projects/FlySwatter/Assets/Voidless/Scripts/Audio/FiniteStateAudioClip.cs",
 		"/D/My Documents/Unity/Unity Projects/FlySwater/FlySwater/Assets/Voidless/Voidless - Visual Debug/Scripts/VisualDebug.cs",
 		"/D/My Documents/Unity/Unity Projects/FlySwater/FlySwater/Assets/Voidless/Voidless - TextMeshProGUI/Scripts/PoolTextMeshProUGUI.cs",
 		"/D/My Documents/Unity/Unity Projects/FlySwater/FlySwater/Assets/Voidless/Voidless - Object Pooling/Scripts/Visual Debug Pool Objects/PoolText.cs",
@@ -697,20 +701,7 @@
 		"/D/My Documents/Unity/Unity Projects/ClassicResidentEvilMaker/Assets/Scripts/Dialogue System/DialogueChoiceNode.cs",
 		"/D/My Documents/Unity/Unity Projects/ClassicResidentEvilMaker/Assets/Voidless/Scripts/Input Controller/New Input System/GamePadInputController.cs",
 		"/D/My Documents/Unity/Unity Projects/ClassicResidentEvilMaker/Assets/Scripts/Controllers/GameplayController.cs",
-		"/D/My Documents/Unity/Unity Projects/TikTokContentCreator/.gitignore",
-		"/D/My Documents/Unity/Unity Projects/TikTokContentCreator/TikTokContentCreator/Assets/Scripts/QuizData.cs",
-		"/C/Users/Lif/.openai/auth.json",
-		"/D/My Documents/Unity/Unity Projects/ClassicResidentEvilMaker/Assets/Scripts/Controllers/GameController.cs",
-		"/D/My Documents/Unity/Unity Projects/ClassicResidentEvilMaker/Assets/Voidless/Scripts/Input Controller/New Input System/BaseInputController.cs",
-		"/D/My Documents/Unity/Unity Projects/ClassicResidentEvilMaker/Assets/Editor/TestingRoomSceneControllerEditor.cs",
-		"/D/My Documents/Unity/Unity Projects/ClassicResidentEvilMaker/Assets/Voidless/Scripts/Singleton/Singleton.cs",
-		"/D/My Documents/Unity/Unity Projects/ClassicResidentEvilMaker/Assets/Scripts/CharacterInputController.cs",
-		"/D/My Documents/Unity/Unity Projects/ClassicResidentEvilMaker/Assets/Scripts/Static Classes/REMakerExtensions.cs",
-		"/D/My Documents/Unity/Unity Projects/ClassicResidentEvilMaker/Assets/Scripts/TextInteractableTriggerZone.cs",
-		"/D/My Documents/Unity/Unity Projects/ClassicResidentEvilMaker/Assets/Scripts/GameplayUIController.cs",
-		"/D/My Documents/Eclipse/Eclipse-Workspace/Processing-AIArchitecture/bin/VoidlessUtilities/Processing/Core/PSketch.class",
-		"/D/My Documents/Unity/Unity Projects/ClassicResidentEvilMaker/Assets/Scripts/Dialogue System/IDialogueNode.cs",
-		"/D/My Documents/Unity/Unity Projects/ClassicResidentEvilMaker/Assets/Scripts/InteractableTriggerZone.cs"
+		"/D/My Documents/Unity/Unity Projects/TikTokContentCreator/.gitignore"
 	],
 	"find":
 	{
@@ -729,6 +720,13 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"Time.deltaTime",
+			".x",
+			"RandomPoint",
+			"name",
+			"N",
+			"name",
+			"A",
 			"Voidless.Pooling",
 			"using UnityEngine.InputSystem;",
 			"InputManager",
@@ -759,38 +757,6 @@
 		{
 			"sheets":
 			[
-				{
-					"buffer": 0,
-					"file": "Assets/Voidless/Scripts/Audio/FiniteStateAudioClip.cs",
-					"selected": true,
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3750,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								312,
-								324
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Unity3D/UnityC#.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 504.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"stack_multiselect": false,
-					"type": "text"
-				}
 			]
 		}
 	],
@@ -842,6 +808,46 @@
 		"last_filter": "",
 		"selected_items":
 		[
+			[
+				"floating",
+				"Voidless\\Scripts\\GUIs\\FloatingGUIElement.cs"
+			],
+			[
+				"VGizmo",
+				"Voidless\\Scripts\\Voidless Extensions\\VGizmos.cs"
+			],
+			[
+				"steeri",
+				"Voidless\\Voidless - AI\\Steering Behaviors\\Scripts\\SteeringVehicle.cs"
+			],
+			[
+				"flyenem",
+				"Scripts\\Enemies\\FlyEnemy.cs"
+			],
+			[
+				"bounds",
+				"Voidless\\Scripts\\Voidless Extensions\\VBounds.cs"
+			],
+			[
+				"goappl",
+				"Voidless\\Voidless - AI\\GOAP\\Scripts\\Simple GOAP\\GOAPPlanner.cs"
+			],
+			[
+				"goapac",
+				"Voidless\\Voidless - AI\\GOAP\\Scripts\\Simple GOAP\\GOAPAction.cs"
+			],
+			[
+				"goap",
+				"Voidless\\Voidless - AI\\GOAP\\Scripts\\Simple GOAP\\GOAPGoal.cs"
+			],
+			[
+				"XRIT",
+				"Voidless\\Voidless - XR\\Voidless - XR Interaction Toolkit\\Scripts\\XRITFlySwatter.cs"
+			],
+			[
+				"hit",
+				"Voidless\\Scripts\\Hit-Boxes\\HitCollider.cs"
+			],
 			[
 				"finite",
 				"Voidless\\Scripts\\Audio\\FiniteStateAudioClip.cs"
@@ -1313,46 +1319,6 @@
 			[
 				"rotationdollo",
 				"Scripts\\Cameras\\VCamera\\VCamera's Scriptable Modules\\Follow Modules\\Rotation Follow Modules\\VCameraRotationFollowModule.cs"
-			],
-			[
-				"vcameradispl",
-				"Scripts\\Cameras\\VCamera\\VCamera's Scriptable Modules\\Follow Modules\\VCameraDisplacementFollowModule.cs"
-			],
-			[
-				"viewporth",
-				"Scripts\\Cameras\\VCamera\\VCamera's Components\\VCameraViewportHandler.cs"
-			],
-			[
-				"follow",
-				"Scripts\\Cameras\\VCamera\\VCamera's Scriptable Modules\\Follow Modules\\VCameraFollowModule.cs"
-			],
-			[
-				"vcameradisplaceme",
-				"Scripts\\Cameras\\VCamera\\TO DEPRECATE (After Turning Delimiters into Modules)\\Camera Functions\\VCameraDisplacementFollow.cs"
-			],
-			[
-				"cameraax",
-				"Scripts\\Cameras\\VCameraFollowAxisData.cs"
-			],
-			[
-				"cameraview",
-				"Scripts\\Cameras\\VCamera\\VCamera's Viewport Structures\\CameraViewportPlane.cs"
-			],
-			[
-				"baseinpu",
-				"Scripts\\Input Controller\\New Input System\\BaseInputController.cs"
-			],
-			[
-				"vcam",
-				"Scripts\\Cameras\\VCamera.cs"
-			],
-			[
-				"vcameramodule",
-				"Scripts\\Cameras\\Camera's Components\\Occlusion Handlers\\VCameraOcclusionEvaluatorModule.cs"
-			],
-			[
-				"calculatormo",
-				"Scripts\\Cameras\\Camera's Scriptable Components\\Distance Adjusters\\VCameraDistanceCalculatorModule.cs"
 			]
 		],
 		"width": 0.0
@@ -1391,7 +1357,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 50.0,
+	"side_bar_width": 140.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

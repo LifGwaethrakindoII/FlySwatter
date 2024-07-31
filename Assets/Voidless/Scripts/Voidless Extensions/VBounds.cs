@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using Random = UnityEngine.Random;
+
 namespace Voidless
 {
 public static class VBounds
@@ -24,6 +26,16 @@ public static class VBounds
 		yield return new Vector3(-x, -y, z);
 		yield return new Vector3(-x, y, -z);
 		yield return new Vector3(-x, -y, -z);
+	}
+
+	/// <returns>Random point inside Bounds.</returns>
+	public static Vector3 GetRandomPoint(this Bounds _bounds)
+	{
+		return new Vector3(
+			Random.Range(_bounds.min.x, _bounds.max.x),
+			Random.Range(_bounds.min.y, _bounds.max.y),
+			Random.Range(_bounds.min.z, _bounds.max.z)
+		);
 	}
 
 	/// <summary>Gets Cartesian Grid Bounds contained on a given Bound.</summary>
