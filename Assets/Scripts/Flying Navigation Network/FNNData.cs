@@ -52,30 +52,5 @@ namespace Voidless.FlySwatter
 			graph.UpdateNeighbors();
             return graph;
         }
-
-		/// <summary>Converts internal Navigation Grid data into a AStarGrid instance.</summary>
-		public AStarGrid ToAStarGrid()
-		{
-			int width = navigationGrid.GetLength(0);
-			int height = navigationGrid.GetLength(1);
-			int depth = navigationGrid.GetLength(2);
-			AStarGrid grid = new AStarGrid(width, height, depth);
-
-			for(int x = 0; x < width; x++)
-			{
-				for(int y = 0; y < height; y++)
-				{
-					for(int z = 0; z < depth; z++)
-					{
-						FNNGridCell cell = navigationGrid[x, y, z];
-						AStarNode node = new AStarNode(cell.position);
-						node.gridPosition = new Vector3Int(x, y, z);
-						grid[x, y, z] = node;
-					}
-				}
-			}
-
-			return grid;
-		}
 	}
 }
