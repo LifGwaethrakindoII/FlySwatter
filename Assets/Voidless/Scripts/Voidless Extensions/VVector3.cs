@@ -257,25 +257,25 @@ namespace Voidless
 		}
 	#endregion
 
-	#region DistanceFunctions:
-		/// <summary>Calculates the Manhattan distance (sum of the component-wise differences) of 2 vectors.</summary>
-		/// <param name="a">Vector A.</param>
-		/// <param name="b">Vector B.</param>
-		/// <returns>Manhattan distance between Vectors A and B.</returns>
-		public static float ManhattanDistance(Vector3 a, Vector3 b)
-		{
-			return Mathf.Abs(a.x - b.x) + Mathf.Abs(a.y - b.y) + Mathf.Abs(a.z - b.z);
-		}
+#region DistanceFunctions:
+	/// <summary>Calculates the Manhattan distance (sum of the component-wise differences) of 2 vectors.</summary>
+	/// <param name="a">Vector A.</param>
+	/// <param name="b">Vector B.</param>
+	/// <returns>Manhattan distance between Vectors A and B.</returns>
+	public static float ManhattanDistance(Vector3 a, Vector3 b)
+	{
+		return Mathf.Abs(a.x - b.x) + Mathf.Abs(a.y - b.y) + Mathf.Abs(a.z - b.z);
+	}
 
-		/// <summary>Calculates the Chebysher distance (maximum of the component-wise differences) of 2 vectors.</summary>
-		/// <param name="a">Vector A.</param>
-		/// <param name="b">Vector B.</param>
-		/// <returns>Chebysher distance between Vectors A and B.</returns>
-		public static float ChebysherDistance(Vector3 a, Vector3 b)
-		{
-			return Mathf.Max(Mathf.Abs(a.x - b.x), Mathf.Abs(a.y - b.y), Mathf.Abs(a.z - b.z));
-		}
-	#endregion 
+	/// <summary>Calculates the Chebysher distance (maximum of the component-wise differences) of 2 vectors.</summary>
+	/// <param name="a">Vector A.</param>
+	/// <param name="b">Vector B.</param>
+	/// <returns>Chebysher distance between Vectors A and B.</returns>
+	public static float ChebysherDistance(Vector3 a, Vector3 b)
+	{
+		return Mathf.Max(Mathf.Abs(a.x - b.x), Mathf.Abs(a.y - b.y), Mathf.Abs(a.z - b.z));
+	}
+#endregion 
 
 	/// \TODO Update to return/take ICollections in a generic way instead?
 	#region CollectionMethods:
@@ -405,6 +405,18 @@ namespace Voidless
 			return newList;
 		}
 	#endregion
+
+		/// <summary>Calculates the square distance between 2 Vectors.</summary>
+		/// <param name="a">Vector A.</param>
+		/// <param name="b">Vector B.</param>
+		public static float SqrDistance(Vector3 a, Vector3 b)
+		{
+			float dx = (a.x - b.x);
+			float dy = (a.y - b.y);
+			float dz = (a.z - b.z);
+			
+			return (dx * dx) + (dy * dy) + (dz * dz);
+		}
 
 		/// <summary>Accelerates x vector into y vector (based on VMath.AccelerateTowards).</summary>
 		/// <param name="x">Vector to accelerate.</param>
