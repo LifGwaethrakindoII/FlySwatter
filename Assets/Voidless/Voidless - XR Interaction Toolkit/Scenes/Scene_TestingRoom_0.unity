@@ -600,6 +600,2659 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _networkData: {fileID: 11400000, guid: dfb3162b9b5af4449a6a5ca0030ad9a3, type: 2}
+  quadTree:
+    _boundary:
+      serializedVersion: 2
+      x: -9.93932
+      y: -9.966297
+      width: 19.721056
+      height: 19.898136
+    _objects:
+    - serializedVersion: 2
+      x: 7.0498824
+      y: -2.6194582
+      width: 0
+      height: 0
+    - serializedVersion: 2
+      x: -0.76480484
+      y: 5.4509807
+      width: 0
+      height: 0
+    - serializedVersion: 2
+      x: 1.2281075
+      y: 2.1164646
+      width: 0
+      height: 0
+    - serializedVersion: 2
+      x: 1.7015848
+      y: -4.4631615
+      width: 0
+      height: 0
+    _children:
+    - _boundary:
+        serializedVersion: 2
+        x: -0.07879162
+        y: -0.01722908
+        width: 9.860528
+        height: 9.949068
+      _objects:
+      - serializedVersion: 2
+        x: 0.9759464
+        y: 9.170727
+        width: 0
+        height: 0
+      - serializedVersion: 2
+        x: 6.7886205
+        y: 1.5571365
+        width: 0
+        height: 0
+      - serializedVersion: 2
+        x: 6.1357346
+        y: 8.152445
+        width: 0
+        height: 0
+      - serializedVersion: 2
+        x: 3.122711
+        y: 3.7393017
+        width: 0
+        height: 0
+      _children:
+      - _boundary:
+          serializedVersion: 2
+          x: 4.8514724
+          y: 4.957305
+          width: 4.930264
+          height: 4.974534
+        _objects:
+        - serializedVersion: 2
+          x: 4.8767614
+          y: 9.765081
+          width: 0
+          height: 0
+        _children:
+        - _boundary:
+            serializedVersion: 2
+            x: 0
+            y: 0
+            width: 0
+            height: 0
+          _objects: []
+          _children: []
+          _subdivided: 0
+        - _boundary:
+            serializedVersion: 2
+            x: 0
+            y: 0
+            width: 0
+            height: 0
+          _objects: []
+          _children: []
+          _subdivided: 0
+        - _boundary:
+            serializedVersion: 2
+            x: 0
+            y: 0
+            width: 0
+            height: 0
+          _objects: []
+          _children: []
+          _subdivided: 0
+        - _boundary:
+            serializedVersion: 2
+            x: 0
+            y: 0
+            width: 0
+            height: 0
+          _objects: []
+          _children: []
+          _subdivided: 0
+        _subdivided: 0
+      - _boundary:
+          serializedVersion: 2
+          x: -0.07879162
+          y: 4.957305
+          width: 4.930264
+          height: 4.974534
+        _objects:
+        - serializedVersion: 2
+          x: 0.72763824
+          y: 5.189249
+          width: 0
+          height: 0
+        - serializedVersion: 2
+          x: 1.4037743
+          y: 5.401745
+          width: 0
+          height: 0
+        - serializedVersion: 2
+          x: 4.0240383
+          y: 9.056387
+          width: 0
+          height: 0
+        _children:
+        - _boundary:
+            serializedVersion: 2
+            x: 0
+            y: 0
+            width: 0
+            height: 0
+          _objects: []
+          _children: []
+          _subdivided: 0
+        - _boundary:
+            serializedVersion: 2
+            x: 0
+            y: 0
+            width: 0
+            height: 0
+          _objects: []
+          _children: []
+          _subdivided: 0
+        - _boundary:
+            serializedVersion: 2
+            x: 0
+            y: 0
+            width: 0
+            height: 0
+          _objects: []
+          _children: []
+          _subdivided: 0
+        - _boundary:
+            serializedVersion: 2
+            x: 0
+            y: 0
+            width: 0
+            height: 0
+          _objects: []
+          _children: []
+          _subdivided: 0
+        _subdivided: 0
+      - _boundary:
+          serializedVersion: 2
+          x: 4.8514724
+          y: -0.01722908
+          width: 4.930264
+          height: 4.974534
+        _objects:
+        - serializedVersion: 2
+          x: 5.0829577
+          y: 1.2230549
+          width: 0
+          height: 0
+        - serializedVersion: 2
+          x: 5.381503
+          y: 2.703838
+          width: 0
+          height: 0
+        - serializedVersion: 2
+          x: 5.473058
+          y: 2.1042624
+          width: 0
+          height: 0
+        _children:
+        - _boundary:
+            serializedVersion: 2
+            x: 0
+            y: 0
+            width: 0
+            height: 0
+          _objects: []
+          _children: []
+          _subdivided: 0
+        - _boundary:
+            serializedVersion: 2
+            x: 0
+            y: 0
+            width: 0
+            height: 0
+          _objects: []
+          _children: []
+          _subdivided: 0
+        - _boundary:
+            serializedVersion: 2
+            x: 0
+            y: 0
+            width: 0
+            height: 0
+          _objects: []
+          _children: []
+          _subdivided: 0
+        - _boundary:
+            serializedVersion: 2
+            x: 0
+            y: 0
+            width: 0
+            height: 0
+          _objects: []
+          _children: []
+          _subdivided: 0
+        _subdivided: 0
+      - _boundary:
+          serializedVersion: 2
+          x: -0.07879162
+          y: -0.01722908
+          width: 4.930264
+          height: 4.974534
+        _objects:
+        - serializedVersion: 2
+          x: 2.4894724
+          y: 2.4711094
+          width: 0
+          height: 0
+        - serializedVersion: 2
+          x: 3.721006
+          y: 1.0222092
+          width: 0
+          height: 0
+        - serializedVersion: 2
+          x: -0.0002822876
+          y: 0.071764946
+          width: 0
+          height: 0
+        - serializedVersion: 2
+          x: 1.9832935
+          y: 2.3195877
+          width: 0
+          height: 0
+        _children:
+        - _boundary:
+            serializedVersion: 2
+            x: 2.3863404
+            y: 2.470038
+            width: 2.465132
+            height: 2.487267
+          _objects:
+          - serializedVersion: 2
+            x: 2.4411497
+            y: 4.1812325
+            width: 0
+            height: 0
+          _children:
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          _subdivided: 0
+        - _boundary:
+            serializedVersion: 2
+            x: -0.07879162
+            y: 2.470038
+            width: 2.465132
+            height: 2.487267
+          _objects: []
+          _children:
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          _subdivided: 0
+        - _boundary:
+            serializedVersion: 2
+            x: 2.3863404
+            y: -0.01722908
+            width: 2.465132
+            height: 2.487267
+          _objects: []
+          _children:
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          _subdivided: 0
+        - _boundary:
+            serializedVersion: 2
+            x: -0.07879162
+            y: -0.01722908
+            width: 2.465132
+            height: 2.487267
+          _objects: []
+          _children:
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          _subdivided: 0
+        _subdivided: 1
+      _subdivided: 1
+    - _boundary:
+        serializedVersion: 2
+        x: -9.93932
+        y: -0.01722908
+        width: 9.860528
+        height: 9.949068
+      _objects:
+      - serializedVersion: 2
+        x: -6.209135
+        y: 4.2197847
+        width: 0
+        height: 0
+      - serializedVersion: 2
+        x: -7.2826004
+        y: 9.523878
+        width: 0
+        height: 0
+      - serializedVersion: 2
+        x: -3.5157146
+        y: 1.6750727
+        width: 0
+        height: 0
+      - serializedVersion: 2
+        x: -5.7765846
+        y: 5.4128504
+        width: 0
+        height: 0
+      _children:
+      - _boundary:
+          serializedVersion: 2
+          x: -5.0090556
+          y: 4.957305
+          width: 4.930264
+          height: 4.974534
+        _objects:
+        - serializedVersion: 2
+          x: -4.849395
+          y: 9.089909
+          width: 0
+          height: 0
+        - serializedVersion: 2
+          x: -2.5699863
+          y: 8.848995
+          width: 0
+          height: 0
+        - serializedVersion: 2
+          x: -2.0269022
+          y: 5.515461
+          width: 0
+          height: 0
+        - serializedVersion: 2
+          x: -3.21134
+          y: 9.408126
+          width: 0
+          height: 0
+        _children:
+        - _boundary:
+            serializedVersion: 2
+            x: 0
+            y: 0
+            width: 0
+            height: 0
+          _objects: []
+          _children: []
+          _subdivided: 0
+        - _boundary:
+            serializedVersion: 2
+            x: 0
+            y: 0
+            width: 0
+            height: 0
+          _objects: []
+          _children: []
+          _subdivided: 0
+        - _boundary:
+            serializedVersion: 2
+            x: 0
+            y: 0
+            width: 0
+            height: 0
+          _objects: []
+          _children: []
+          _subdivided: 0
+        - _boundary:
+            serializedVersion: 2
+            x: 0
+            y: 0
+            width: 0
+            height: 0
+          _objects: []
+          _children: []
+          _subdivided: 0
+        _subdivided: 0
+      - _boundary:
+          serializedVersion: 2
+          x: -9.93932
+          y: 4.957305
+          width: 4.930264
+          height: 4.974534
+        _objects:
+        - serializedVersion: 2
+          x: -8.05098
+          y: 8.710941
+          width: 0
+          height: 0
+        - serializedVersion: 2
+          x: -6.807211
+          y: 6.2144804
+          width: 0
+          height: 0
+        - serializedVersion: 2
+          x: -9.5145
+          y: 6.745817
+          width: 0
+          height: 0
+        - serializedVersion: 2
+          x: -8.447418
+          y: 9.021988
+          width: 0
+          height: 0
+        _children:
+        - _boundary:
+            serializedVersion: 2
+            x: -7.474188
+            y: 7.444572
+            width: 2.465132
+            height: 2.487267
+          _objects:
+          - serializedVersion: 2
+            x: -5.847845
+            y: 9.660728
+            width: 0
+            height: 0
+          - serializedVersion: 2
+            x: -5.088703
+            y: 9.924925
+            width: 0
+            height: 0
+          _children:
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          _subdivided: 0
+        - _boundary:
+            serializedVersion: 2
+            x: -9.93932
+            y: 7.444572
+            width: 2.465132
+            height: 2.487267
+          _objects:
+          - serializedVersion: 2
+            x: -9.548529
+            y: 9.264545
+            width: 0
+            height: 0
+          - serializedVersion: 2
+            x: -9.326525
+            y: 8.1678505
+            width: 0
+            height: 0
+          _children:
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          _subdivided: 0
+        - _boundary:
+            serializedVersion: 2
+            x: -7.474188
+            y: 4.957305
+            width: 2.465132
+            height: 2.487267
+          _objects:
+          - serializedVersion: 2
+            x: -5.2718973
+            y: 6.02211
+            width: 0
+            height: 0
+          _children:
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          _subdivided: 0
+        - _boundary:
+            serializedVersion: 2
+            x: -9.93932
+            y: 4.957305
+            width: 2.465132
+            height: 2.487267
+          _objects:
+          - serializedVersion: 2
+            x: -7.5524616
+            y: 6.254337
+            width: 0
+            height: 0
+          - serializedVersion: 2
+            x: -7.920286
+            y: 7.027323
+            width: 0
+            height: 0
+          _children:
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          _subdivided: 0
+        _subdivided: 1
+      - _boundary:
+          serializedVersion: 2
+          x: -5.0090556
+          y: -0.01722908
+          width: 4.930264
+          height: 4.974534
+        _objects:
+        - serializedVersion: 2
+          x: -0.22592926
+          y: 2.29947
+          width: 0
+          height: 0
+        - serializedVersion: 2
+          x: -2.7053347
+          y: 0.017541885
+          width: 0
+          height: 0
+        - serializedVersion: 2
+          x: -0.5260744
+          y: 3.3570907
+          width: 0
+          height: 0
+        - serializedVersion: 2
+          x: -3.1668816
+          y: 4.81534
+          width: 0
+          height: 0
+        _children:
+        - _boundary:
+            serializedVersion: 2
+            x: -2.5439236
+            y: 2.470038
+            width: 2.465132
+            height: 2.487267
+          _objects: []
+          _children:
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          _subdivided: 0
+        - _boundary:
+            serializedVersion: 2
+            x: -5.0090556
+            y: 2.470038
+            width: 2.465132
+            height: 2.487267
+          _objects: []
+          _children:
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          _subdivided: 0
+        - _boundary:
+            serializedVersion: 2
+            x: -2.5439236
+            y: -0.01722908
+            width: 2.465132
+            height: 2.487267
+          _objects:
+          - serializedVersion: 2
+            x: -1.4950428
+            y: 0.62947655
+            width: 0
+            height: 0
+          _children:
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          _subdivided: 0
+        - _boundary:
+            serializedVersion: 2
+            x: -5.0090556
+            y: -0.01722908
+            width: 2.465132
+            height: 2.487267
+          _objects: []
+          _children:
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          _subdivided: 0
+        _subdivided: 1
+      - _boundary:
+          serializedVersion: 2
+          x: -9.93932
+          y: -0.01722908
+          width: 4.930264
+          height: 4.974534
+        _objects:
+        - serializedVersion: 2
+          x: -5.7381134
+          y: 3.3798428
+          width: 0
+          height: 0
+        - serializedVersion: 2
+          x: -9.701536
+          y: 3.7873287
+          width: 0
+          height: 0
+        - serializedVersion: 2
+          x: -8.686216
+          y: 3.6480234
+          width: 0
+          height: 0
+        - serializedVersion: 2
+          x: -8.262569
+          y: 2.2843447
+          width: 0
+          height: 0
+        _children:
+        - _boundary:
+            serializedVersion: 2
+            x: -7.474188
+            y: 2.470038
+            width: 2.465132
+            height: 2.487267
+          _objects:
+          - serializedVersion: 2
+            x: -5.1233788
+            y: 4.8192883
+            width: 0
+            height: 0
+          _children:
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          _subdivided: 0
+        - _boundary:
+            serializedVersion: 2
+            x: -9.93932
+            y: 2.470038
+            width: 2.465132
+            height: 2.487267
+          _objects:
+          - serializedVersion: 2
+            x: -7.496807
+            y: 2.9582477
+            width: 0
+            height: 0
+          _children:
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          _subdivided: 0
+        - _boundary:
+            serializedVersion: 2
+            x: -7.474188
+            y: -0.01722908
+            width: 2.465132
+            height: 2.487267
+          _objects:
+          - serializedVersion: 2
+            x: -7.406624
+            y: 0.527009
+            width: 0
+            height: 0
+          _children:
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          _subdivided: 0
+        - _boundary:
+            serializedVersion: 2
+            x: -9.93932
+            y: -0.01722908
+            width: 2.465132
+            height: 2.487267
+          _objects: []
+          _children:
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          _subdivided: 0
+        _subdivided: 1
+      _subdivided: 1
+    - _boundary:
+        serializedVersion: 2
+        x: -0.07879162
+        y: -9.966297
+        width: 9.860528
+        height: 9.949068
+      _objects:
+      - serializedVersion: 2
+        x: 7.4321513
+        y: -4.412633
+        width: 0
+        height: 0
+      - serializedVersion: 2
+        x: 5.014539
+        y: -9.527992
+        width: 0
+        height: 0
+      - serializedVersion: 2
+        x: 7.4527335
+        y: -0.33170795
+        width: 0
+        height: 0
+      - serializedVersion: 2
+        x: 5.0955124
+        y: -3.6288176
+        width: 0
+        height: 0
+      _children:
+      - _boundary:
+          serializedVersion: 2
+          x: 4.8514724
+          y: -4.991763
+          width: 4.930264
+          height: 4.974534
+        _objects:
+        - serializedVersion: 2
+          x: 5.021364
+          y: -1.6521416
+          width: 0
+          height: 0
+        - serializedVersion: 2
+          x: 5.090906
+          y: -2.1728745
+          width: 0
+          height: 0
+        - serializedVersion: 2
+          x: 7.959528
+          y: -4.8338118
+          width: 0
+          height: 0
+        - serializedVersion: 2
+          x: 5.789625
+          y: -4.9493065
+          width: 0
+          height: 0
+        _children:
+        - _boundary:
+            serializedVersion: 2
+            x: 7.3166046
+            y: -2.504496
+            width: 2.465132
+            height: 2.487267
+          _objects: []
+          _children:
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          _subdivided: 0
+        - _boundary:
+            serializedVersion: 2
+            x: 4.851473
+            y: -2.504496
+            width: 2.465132
+            height: 2.487267
+          _objects:
+          - serializedVersion: 2
+            x: 5.450635
+            y: -2.177411
+            width: 0
+            height: 0
+          _children:
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          _subdivided: 0
+        - _boundary:
+            serializedVersion: 2
+            x: 7.3166046
+            y: -4.991763
+            width: 2.465132
+            height: 2.487267
+          _objects:
+          - serializedVersion: 2
+            x: 7.5387306
+            y: -2.798501
+            width: 0
+            height: 0
+          _children:
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          _subdivided: 0
+        - _boundary:
+            serializedVersion: 2
+            x: 4.851473
+            y: -4.991763
+            width: 2.465132
+            height: 2.487267
+          _objects:
+          - serializedVersion: 2
+            x: 5.415771
+            y: -3.3862553
+            width: 0
+            height: 0
+          _children:
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          _subdivided: 0
+        _subdivided: 1
+      - _boundary:
+          serializedVersion: 2
+          x: -0.07879162
+          y: -4.991763
+          width: 4.930264
+          height: 4.974534
+        _objects:
+        - serializedVersion: 2
+          x: 0.38866425
+          y: -0.3759327
+          width: 0
+          height: 0
+        - serializedVersion: 2
+          x: 2.4358568
+          y: -0.7590475
+          width: 0
+          height: 0
+        _children:
+        - _boundary:
+            serializedVersion: 2
+            x: 0
+            y: 0
+            width: 0
+            height: 0
+          _objects: []
+          _children: []
+          _subdivided: 0
+        - _boundary:
+            serializedVersion: 2
+            x: 0
+            y: 0
+            width: 0
+            height: 0
+          _objects: []
+          _children: []
+          _subdivided: 0
+        - _boundary:
+            serializedVersion: 2
+            x: 0
+            y: 0
+            width: 0
+            height: 0
+          _objects: []
+          _children: []
+          _subdivided: 0
+        - _boundary:
+            serializedVersion: 2
+            x: 0
+            y: 0
+            width: 0
+            height: 0
+          _objects: []
+          _children: []
+          _subdivided: 0
+        _subdivided: 0
+      - _boundary:
+          serializedVersion: 2
+          x: 4.8514724
+          y: -9.966297
+          width: 4.930264
+          height: 4.974534
+        _objects:
+        - serializedVersion: 2
+          x: 5.751829
+          y: -9.932039
+          width: 0
+          height: 0
+        - serializedVersion: 2
+          x: 9.286137
+          y: -9.259003
+          width: 0
+          height: 0
+        - serializedVersion: 2
+          x: 5.993781
+          y: -7.254774
+          width: 0
+          height: 0
+        - serializedVersion: 2
+          x: 8.647671
+          y: -5.248008
+          width: 0
+          height: 0
+        _children:
+        - _boundary:
+            serializedVersion: 2
+            x: 7.3166046
+            y: -7.47903
+            width: 2.465132
+            height: 2.487267
+          _objects: []
+          _children:
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          _subdivided: 0
+        - _boundary:
+            serializedVersion: 2
+            x: 4.851473
+            y: -7.47903
+            width: 2.465132
+            height: 2.487267
+          _objects: []
+          _children:
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          _subdivided: 0
+        - _boundary:
+            serializedVersion: 2
+            x: 7.3166046
+            y: -9.966297
+            width: 2.465132
+            height: 2.487267
+          _objects:
+          - serializedVersion: 2
+            x: 8.877306
+            y: -9.540842
+            width: 0
+            height: 0
+          - serializedVersion: 2
+            x: 9.2841625
+            y: -8.844053
+            width: 0
+            height: 0
+          - serializedVersion: 2
+            x: 7.9192657
+            y: -9.747812
+            width: 0
+            height: 0
+          - serializedVersion: 2
+            x: 8.14384
+            y: -9.764141
+            width: 0
+            height: 0
+          _children:
+          - _boundary:
+              serializedVersion: 2
+              x: 8.5491705
+              y: -8.722664
+              width: 1.232566
+              height: 1.2436335
+            _objects: []
+            _children:
+            - _boundary:
+                serializedVersion: 2
+                x: 0
+                y: 0
+                width: 0
+                height: 0
+              _objects: []
+              _children: []
+              _subdivided: 0
+            - _boundary:
+                serializedVersion: 2
+                x: 0
+                y: 0
+                width: 0
+                height: 0
+              _objects: []
+              _children: []
+              _subdivided: 0
+            - _boundary:
+                serializedVersion: 2
+                x: 0
+                y: 0
+                width: 0
+                height: 0
+              _objects: []
+              _children: []
+              _subdivided: 0
+            - _boundary:
+                serializedVersion: 2
+                x: 0
+                y: 0
+                width: 0
+                height: 0
+              _objects: []
+              _children: []
+              _subdivided: 0
+            _subdivided: 0
+          - _boundary:
+              serializedVersion: 2
+              x: 7.3166046
+              y: -8.722664
+              width: 1.232566
+              height: 1.2436335
+            _objects:
+            - serializedVersion: 2
+              x: 7.596798
+              y: -8.443214
+              width: 0
+              height: 0
+            _children:
+            - _boundary:
+                serializedVersion: 2
+                x: 0
+                y: 0
+                width: 0
+                height: 0
+              _objects: []
+              _children: []
+              _subdivided: 0
+            - _boundary:
+                serializedVersion: 2
+                x: 0
+                y: 0
+                width: 0
+                height: 0
+              _objects: []
+              _children: []
+              _subdivided: 0
+            - _boundary:
+                serializedVersion: 2
+                x: 0
+                y: 0
+                width: 0
+                height: 0
+              _objects: []
+              _children: []
+              _subdivided: 0
+            - _boundary:
+                serializedVersion: 2
+                x: 0
+                y: 0
+                width: 0
+                height: 0
+              _objects: []
+              _children: []
+              _subdivided: 0
+            _subdivided: 0
+          - _boundary:
+              serializedVersion: 2
+              x: 8.5491705
+              y: -9.966297
+              width: 1.232566
+              height: 1.2436335
+            _objects: []
+            _children:
+            - _boundary:
+                serializedVersion: 2
+                x: 0
+                y: 0
+                width: 0
+                height: 0
+              _objects: []
+              _children: []
+              _subdivided: 0
+            - _boundary:
+                serializedVersion: 2
+                x: 0
+                y: 0
+                width: 0
+                height: 0
+              _objects: []
+              _children: []
+              _subdivided: 0
+            - _boundary:
+                serializedVersion: 2
+                x: 0
+                y: 0
+                width: 0
+                height: 0
+              _objects: []
+              _children: []
+              _subdivided: 0
+            - _boundary:
+                serializedVersion: 2
+                x: 0
+                y: 0
+                width: 0
+                height: 0
+              _objects: []
+              _children: []
+              _subdivided: 0
+            _subdivided: 0
+          - _boundary:
+              serializedVersion: 2
+              x: 7.3166046
+              y: -9.966297
+              width: 1.232566
+              height: 1.2436335
+            _objects: []
+            _children:
+            - _boundary:
+                serializedVersion: 2
+                x: 0
+                y: 0
+                width: 0
+                height: 0
+              _objects: []
+              _children: []
+              _subdivided: 0
+            - _boundary:
+                serializedVersion: 2
+                x: 0
+                y: 0
+                width: 0
+                height: 0
+              _objects: []
+              _children: []
+              _subdivided: 0
+            - _boundary:
+                serializedVersion: 2
+                x: 0
+                y: 0
+                width: 0
+                height: 0
+              _objects: []
+              _children: []
+              _subdivided: 0
+            - _boundary:
+                serializedVersion: 2
+                x: 0
+                y: 0
+                width: 0
+                height: 0
+              _objects: []
+              _children: []
+              _subdivided: 0
+            _subdivided: 0
+          _subdivided: 1
+        - _boundary:
+            serializedVersion: 2
+            x: 4.851473
+            y: -9.966297
+            width: 2.465132
+            height: 2.487267
+          _objects: []
+          _children:
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          _subdivided: 0
+        _subdivided: 1
+      - _boundary:
+          serializedVersion: 2
+          x: -0.07879162
+          y: -9.966297
+          width: 4.930264
+          height: 4.974534
+        _objects:
+        - serializedVersion: 2
+          x: 4.509914
+          y: -5.145664
+          width: 0
+          height: 0
+        - serializedVersion: 2
+          x: 1.7839613
+          y: -6.622215
+          width: 0
+          height: 0
+        - serializedVersion: 2
+          x: 1.9943132
+          y: -8.226168
+          width: 0
+          height: 0
+        _children:
+        - _boundary:
+            serializedVersion: 2
+            x: 0
+            y: 0
+            width: 0
+            height: 0
+          _objects: []
+          _children: []
+          _subdivided: 0
+        - _boundary:
+            serializedVersion: 2
+            x: 0
+            y: 0
+            width: 0
+            height: 0
+          _objects: []
+          _children: []
+          _subdivided: 0
+        - _boundary:
+            serializedVersion: 2
+            x: 0
+            y: 0
+            width: 0
+            height: 0
+          _objects: []
+          _children: []
+          _subdivided: 0
+        - _boundary:
+            serializedVersion: 2
+            x: 0
+            y: 0
+            width: 0
+            height: 0
+          _objects: []
+          _children: []
+          _subdivided: 0
+        _subdivided: 0
+      _subdivided: 1
+    - _boundary:
+        serializedVersion: 2
+        x: -9.93932
+        y: -9.966297
+        width: 9.860528
+        height: 9.949068
+      _objects:
+      - serializedVersion: 2
+        x: -8.043461
+        y: -9.77623
+        width: 0
+        height: 0
+      - serializedVersion: 2
+        x: -2.4069967
+        y: -9.085272
+        width: 0
+        height: 0
+      - serializedVersion: 2
+        x: -0.38384533
+        y: -4.0855255
+        width: 0
+        height: 0
+      - serializedVersion: 2
+        x: -2.8286352
+        y: -2.273594
+        width: 0
+        height: 0
+      _children:
+      - _boundary:
+          serializedVersion: 2
+          x: -5.0090556
+          y: -4.991763
+          width: 4.930264
+          height: 4.974534
+        _objects:
+        - serializedVersion: 2
+          x: -1.2544117
+          y: -3.504611
+          width: 0
+          height: 0
+        - serializedVersion: 2
+          x: -1.2327709
+          y: -4.4679775
+          width: 0
+          height: 0
+        - serializedVersion: 2
+          x: -0.5788841
+          y: -4.130994
+          width: 0
+          height: 0
+        - serializedVersion: 2
+          x: -1.0170088
+          y: -2.8658333
+          width: 0
+          height: 0
+        _children:
+        - _boundary:
+            serializedVersion: 2
+            x: -2.5439236
+            y: -2.504496
+            width: 2.465132
+            height: 2.487267
+          _objects:
+          - serializedVersion: 2
+            x: -2.3354683
+            y: -0.9134731
+            width: 0
+            height: 0
+          _children:
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          _subdivided: 0
+        - _boundary:
+            serializedVersion: 2
+            x: -5.0090556
+            y: -2.504496
+            width: 2.465132
+            height: 2.487267
+          _objects: []
+          _children:
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          _subdivided: 0
+        - _boundary:
+            serializedVersion: 2
+            x: -2.5439236
+            y: -4.991763
+            width: 2.465132
+            height: 2.487267
+          _objects: []
+          _children:
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          _subdivided: 0
+        - _boundary:
+            serializedVersion: 2
+            x: -5.0090556
+            y: -4.991763
+            width: 2.465132
+            height: 2.487267
+          _objects: []
+          _children:
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          _subdivided: 0
+        _subdivided: 1
+      - _boundary:
+          serializedVersion: 2
+          x: -9.93932
+          y: -4.991763
+          width: 4.930264
+          height: 4.974534
+        _objects:
+        - serializedVersion: 2
+          x: -5.5522327
+          y: -3.8775864
+          width: 0
+          height: 0
+        - serializedVersion: 2
+          x: -6.691448
+          y: -2.2344027
+          width: 0
+          height: 0
+        - serializedVersion: 2
+          x: -7.086453
+          y: -0.078617096
+          width: 0
+          height: 0
+        _children:
+        - _boundary:
+            serializedVersion: 2
+            x: 0
+            y: 0
+            width: 0
+            height: 0
+          _objects: []
+          _children: []
+          _subdivided: 0
+        - _boundary:
+            serializedVersion: 2
+            x: 0
+            y: 0
+            width: 0
+            height: 0
+          _objects: []
+          _children: []
+          _subdivided: 0
+        - _boundary:
+            serializedVersion: 2
+            x: 0
+            y: 0
+            width: 0
+            height: 0
+          _objects: []
+          _children: []
+          _subdivided: 0
+        - _boundary:
+            serializedVersion: 2
+            x: 0
+            y: 0
+            width: 0
+            height: 0
+          _objects: []
+          _children: []
+          _subdivided: 0
+        _subdivided: 0
+      - _boundary:
+          serializedVersion: 2
+          x: -5.0090556
+          y: -9.966297
+          width: 4.930264
+          height: 4.974534
+        _objects:
+        - serializedVersion: 2
+          x: -2.5930223
+          y: -7.0904045
+          width: 0
+          height: 0
+        - serializedVersion: 2
+          x: -0.89725876
+          y: -9.966297
+          width: 0
+          height: 0
+        - serializedVersion: 2
+          x: -4.535948
+          y: -9.153297
+          width: 0
+          height: 0
+        - serializedVersion: 2
+          x: -1.445776
+          y: -7.107311
+          width: 0
+          height: 0
+        _children:
+        - _boundary:
+            serializedVersion: 2
+            x: -2.5439236
+            y: -7.47903
+            width: 2.465132
+            height: 2.487267
+          _objects:
+          - serializedVersion: 2
+            x: -1.0640392
+            y: -6.293464
+            width: 0
+            height: 0
+          _children:
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          _subdivided: 0
+        - _boundary:
+            serializedVersion: 2
+            x: -5.0090556
+            y: -7.47903
+            width: 2.465132
+            height: 2.487267
+          _objects:
+          - serializedVersion: 2
+            x: -3.3936558
+            y: -5.0467587
+            width: 0
+            height: 0
+          _children:
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          _subdivided: 0
+        - _boundary:
+            serializedVersion: 2
+            x: -2.5439236
+            y: -9.966297
+            width: 2.465132
+            height: 2.487267
+          _objects: []
+          _children:
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          _subdivided: 0
+        - _boundary:
+            serializedVersion: 2
+            x: -5.0090556
+            y: -9.966297
+            width: 2.465132
+            height: 2.487267
+          _objects:
+          - serializedVersion: 2
+            x: -4.159893
+            y: -8.411667
+            width: 0
+            height: 0
+          _children:
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          - _boundary:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+            _objects: []
+            _children: []
+            _subdivided: 0
+          _subdivided: 0
+        _subdivided: 1
+      - _boundary:
+          serializedVersion: 2
+          x: -9.93932
+          y: -9.966297
+          width: 4.930264
+          height: 4.974534
+        _objects:
+        - serializedVersion: 2
+          x: -7.3657055
+          y: -6.7950993
+          width: 0
+          height: 0
+        - serializedVersion: 2
+          x: -5.9478016
+          y: -9.811964
+          width: 0
+          height: 0
+        - serializedVersion: 2
+          x: -9.93932
+          y: -9.461462
+          width: 0
+          height: 0
+        _children:
+        - _boundary:
+            serializedVersion: 2
+            x: 0
+            y: 0
+            width: 0
+            height: 0
+          _objects: []
+          _children: []
+          _subdivided: 0
+        - _boundary:
+            serializedVersion: 2
+            x: 0
+            y: 0
+            width: 0
+            height: 0
+          _objects: []
+          _children: []
+          _subdivided: 0
+        - _boundary:
+            serializedVersion: 2
+            x: 0
+            y: 0
+            width: 0
+            height: 0
+          _objects: []
+          _children: []
+          _subdivided: 0
+        - _boundary:
+            serializedVersion: 2
+            x: 0
+            y: 0
+            width: 0
+            height: 0
+          _objects: []
+          _children: []
+          _subdivided: 0
+        _subdivided: 0
+      _subdivided: 1
+    _subdivided: 1
+  points:
+  - {x: 7.0498824, y: -2.6194582}
+  - {x: -0.76480484, y: 5.4509807}
+  - {x: 1.2281075, y: 2.1164646}
+  - {x: 1.7015848, y: -4.4631615}
+  - {x: -8.043461, y: -9.77623}
+  - {x: -6.209135, y: 4.2197847}
+  - {x: -7.2826004, y: 9.523878}
+  - {x: 7.4321513, y: -4.412633}
+  - {x: -2.4069967, y: -9.085272}
+  - {x: -0.38384533, y: -4.0855255}
+  - {x: 0.9759464, y: 9.170727}
+  - {x: 5.014539, y: -9.527992}
+  - {x: -3.5157146, y: 1.6750727}
+  - {x: -2.8286352, y: -2.273594}
+  - {x: -5.7765846, y: 5.4128504}
+  - {x: -7.3657055, y: -6.7950993}
+  - {x: -0.22592926, y: 2.29947}
+  - {x: 7.4527335, y: -0.33170795}
+  - {x: 5.0955124, y: -3.6288176}
+  - {x: -1.2544117, y: -3.504611}
+  - {x: 6.7886205, y: 1.5571365}
+  - {x: -5.7381134, y: 3.3798428}
+  - {x: -8.05098, y: 8.710941}
+  - {x: 5.751829, y: -9.932039}
+  - {x: -6.807211, y: 6.2144804}
+  - {x: 4.509914, y: -5.145664}
+  - {x: -1.2327709, y: -4.4679775}
+  - {x: -0.5788841, y: -4.130994}
+  - {x: -9.5145, y: 6.745817}
+  - {x: -2.5930223, y: -7.0904045}
+  - {x: 6.1357346, y: 8.152445}
+  - {x: 9.286137, y: -9.259003}
+  - {x: 3.122711, y: 3.7393017}
+  - {x: -2.7053347, y: 0.017541885}
+  - {x: 0.72763824, y: 5.189249}
+  - {x: -8.447418, y: 9.021988}
+  - {x: -0.89725876, y: -9.966297}
+  - {x: 5.021364, y: -1.6521416}
+  - {x: -5.9478016, y: -9.811964}
+  - {x: 2.4894724, y: 2.4711094}
+  - {x: -7.5524616, y: 6.254337}
+  - {x: 3.721006, y: 1.0222092}
+  - {x: 5.090906, y: -2.1728745}
+  - {x: -5.5522327, y: -3.8775864}
+  - {x: -9.548529, y: 9.264545}
+  - {x: -4.483658, y: 9.931839}
+  - {x: -4.849395, y: 9.089909}
+  - {x: 7.959528, y: -4.8338118}
+  - {x: -4.535948, y: -9.153297}
+  - {x: 1.4037743, y: 5.401745}
+  - {x: -9.701536, y: 3.7873287}
+  - {x: -5.2718973, y: 6.02211}
+  - {x: -0.5260744, y: 3.3570907}
+  - {x: 5.789625, y: -4.9493065}
+  - {x: -1.0170088, y: -2.8658333}
+  - {x: -0.0002822876, y: 0.071764946}
+  - {x: -2.5699863, y: 8.848995}
+  - {x: -7.920286, y: 7.027323}
+  - {x: 5.0829577, y: 1.2230549}
+  - {x: 5.993781, y: -7.254774}
+  - {x: -2.0269022, y: 5.515461}
+  - {x: -1.445776, y: -7.107311}
+  - {x: 1.7839613, y: -6.622215}
+  - {x: 9.781737, y: 1.4991674}
+  - {x: 8.647671, y: -5.248008}
+  - {x: 0.38866425, y: -0.3759327}
+  - {x: -3.3936558, y: -5.0467587}
+  - {x: 1.9832935, y: 2.3195877}
+  - {x: -1.0640392, y: -6.293464}
+  - {x: -6.691448, y: -2.2344027}
+  - {x: 8.877306, y: -9.540842}
+  - {x: -8.686216, y: 3.6480234}
+  - {x: 5.381503, y: 2.703838}
+  - {x: -9.93932, y: -9.461462}
+  - {x: -5.847845, y: 9.660728}
+  - {x: -3.21134, y: 9.408126}
+  - {x: -8.262569, y: 2.2843447}
+  - {x: -7.406624, y: 0.527009}
+  - {x: 5.450635, y: -2.177411}
+  - {x: -5.1233788, y: 4.8192883}
+  - {x: -9.326525, y: 8.1678505}
+  - {x: -7.496807, y: 2.9582477}
+  - {x: 7.5387306, y: -2.798501}
+  - {x: 9.2841625, y: -8.844053}
+  - {x: -5.088703, y: 9.924925}
+  - {x: 5.473058, y: 2.1042624}
+  - {x: 7.9192657, y: -9.747812}
+  - {x: -3.1668816, y: 4.81534}
+  - {x: 8.14384, y: -9.764141}
+  - {x: 1.9943132, y: -8.226168}
+  - {x: 5.415771, y: -3.3862553}
+  - {x: 7.596798, y: -8.443214}
+  - {x: -4.159893, y: -8.411667}
+  - {x: 2.4411497, y: 4.1812325}
+  - {x: -1.4950428, y: 0.62947655}
+  - {x: -2.3354683, y: -0.9134731}
+  - {x: -7.086453, y: -0.078617096}
+  - {x: 4.8767614, y: 9.765081}
+  - {x: 2.4358568, y: -0.7590475}
+  - {x: 4.0240383, y: 9.056387}
 --- !u!4 &306970053
 Transform:
   m_ObjectHideFlags: 0

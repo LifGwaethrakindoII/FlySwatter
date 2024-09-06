@@ -19,6 +19,8 @@ namespace Voidless.FlySwatter
         private IPathFindingNode<Vector3> start;
         private IPathFindingNode<Vector3> end;
         private List<IPathFindingNode<Vector3>> path;
+        [SerializeField] private QuadTree quadTree;
+        [SerializeField] private Vector2[] points;
 
         /// <summary>Gets networkData property.</summary>
         public FNNData networkData { get { return _networkData; } }
@@ -34,6 +36,12 @@ namespace Voidless.FlySwatter
         /// <summary>Draws Gizmos on Editor mode when FlyingNavigationNetworkManager's instance is selected.</summary>
         private void OnDrawGizmosSelected()
         {
+            if(quadTree != null)
+            {
+                Gizmos.color = Color.yellow;
+                quadTree.DrawGizmos();
+            }
+
             if(networkData == null) return;
             
             Gizmos.color = Color.cyan;
@@ -89,6 +97,21 @@ namespace Voidless.FlySwatter
                 if(p.HasValue) Gizmos.DrawLine(p.Value, node.data);
                 p = node.data;
             }
+        }
+
+        [Button("Generate Quad-Tree")]
+        private void GenerateQuadTree()
+        {
+            FloatRange range = new FloatRange(-10f, 10f);
+            int size = 100;
+            points = new Vector2[size];
+
+            for(int i = 0; i < size; i++)
+            {
+                points[i] = VVector2.Random(range);
+            }
+
+            quadTree = QuadTree.GenerateFromPoints(points);
         }
 
         [Button("Bake Network")]

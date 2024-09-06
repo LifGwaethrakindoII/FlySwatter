@@ -12,6 +12,8 @@ public enum GizmosDrawType 								/// <summary>Gizmos' Draw Types.</summary>
 
 public static class VGizmos
 {
+	public const float MIN_DEPTH = 0.001f;
+
 	/// <summary>Draws TransformData into the Gizmos' thread.</summary>
 	/// <param name="_data">TransformData to draw.</param>
 	/// <param name="r">Gizmos' Radius [0.5f as default].</param>
@@ -31,6 +33,26 @@ public static class VGizmos
 		Gizmos.DrawRay(position, (rotation * Vector3.forward * r));
 
 		Gizmos.color = originalColor;
+	}
+
+	public static void DrawRect(Rect r)
+	{
+		Vector3 position = r.center;
+		Vector3 size = r.size;
+
+		size.z = MIN_DEPTH;
+
+		Gizmos.DrawCube(position, size);
+	}
+
+	public static void DrawWireRect(Rect r)
+	{
+		Vector3 position = r.center;
+		Vector3 size = r.size;
+
+		size.z = MIN_DEPTH;
+
+		Gizmos.DrawWireCube(position, size);
 	}
 
 	/// \TODO Finish the damn method...

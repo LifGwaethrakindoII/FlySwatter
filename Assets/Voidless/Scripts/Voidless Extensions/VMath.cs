@@ -872,6 +872,20 @@ namespace Voidless
 			return new Bounds(center, size);
 		}
 
+		public static Rect GetRectToFitPair(Rect a, Rect b)
+		{
+			Vector3 center = new Vector3(
+				GetMedian(Mathf.Min(a.min.x, b.min.x), Mathf.Max(a.max.x, b.max.x)),
+				GetMedian(Mathf.Min(a.min.y, b.min.y), Mathf.Max(a.max.y, b.max.y))
+			);
+			Vector3 size = new Vector3(
+				VMath.GetSizeToFitSegments(a.min.x, a.max.x, b.min.x, b.max.x),
+				VMath.GetSizeToFitSegments(a.min.y, a.max.y, b.min.y, b.max.y)
+			);
+
+			return VRect.FromCenter(center, size);
+		}
+
 		/// <summary>Calculates the Rule of 3 given three values A, B and C (A -> C; B -> X).</summary>
 		/// <param name="a">Value A (Extreme).</param>
 		/// <param name="b">Value B (Mean).</param>
