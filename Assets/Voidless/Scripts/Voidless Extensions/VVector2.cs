@@ -192,6 +192,34 @@ public static class VVector2
 	}
 
 	/// <summary>Generates a vector with random component values.</summary>
+	/// <param name="min">Random's Minimum value.</param>
+	/// <param name="max">Random's Maximum value.</param>
+	/// <returns>Vector with random ranged component's values.</returns>
+	public static Vector2 Random(float min, float max)
+	{
+		return new Vector2
+		(
+			UnityEngine.Random.Range(min, max),
+			UnityEngine.Random.Range(min, max)
+		);
+	}
+
+	/// <summary>Generates a vector with random component values.</summary>
+	/// <param name="minX">Random's Minimum value for X.</param>
+	/// <param name="maxX">Random's Maximum value for X.</param>
+	/// <param name="minY">Random's Minimum value for Y.</param>
+	/// <param name="maxY">Random's Maximum value for Y.</param>
+	/// <returns>Vector with random ranged component's values.</returns>
+	public static Vector2 Random(float minX, float maxX, float minY, float maxY)
+	{
+		return new Vector2
+		(
+			UnityEngine.Random.Range(minX, maxX),
+			UnityEngine.Random.Range(minY, maxY)
+		);
+	}
+
+	/// <summary>Generates a vector with random component values.</summary>
 	/// <param name="_randomRange">Random's Range.</param>
 	/// <returns>Vector with random ranged component's values.</returns>
 	public static Vector2 Random(FloatRange _randomRange)

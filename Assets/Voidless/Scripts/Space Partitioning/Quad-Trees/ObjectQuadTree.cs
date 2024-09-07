@@ -6,15 +6,16 @@ using UnityEngine;
 namespace Voidless
 {
     [Serializable]
-    public class QuadTree : ICollection<Rect>, IEnumerable<QuadTree>, IEnumerable<Rect>
+    public class ObjectQuadTree<T> : ICollection<T>, IEnumerable<T>, IEnumerable<ObjectQuadTree<T>>
     {
         public const int MAX_POINTSPERNODE = 4;
 
         [SerializeField] private Rect _boundary;
-        private List<Rect> _objects;
-        private QuadTree[] _children;
+        private Func<T, Rect> getRect;
+        private HashSet<T> _objects;
+        private ObjectQuadTree<T>[] _children;
         private bool _subdivided;
-        
+
         /// <summary>Gets and Sets boundary property.</summary>
         public Rect boundary
         {
@@ -22,15 +23,22 @@ namespace Voidless
             set { _boundary = value; }
         }
 
+        /// <summary>Gets and Sets GetRect property.</summary>
+        public Func<T, Rect> GetRect
+        {
+            get { return getRect; }
+            set { getRect = value; }
+        }
+
         /// <summary>Gets and Sets objects property.</summary>
-        public List<Rect> objects
+        public HashSet<T> objects
         {
             get { return _objects; }
             private set { _objects = value; }
         }
 
         /// <summary>Gets and Sets children property.</summary>
-        public QuadTree[] children
+        public ObjectQuadTree<T>[] children
         {
             get { return _children; }
             private set { _children = value; }
@@ -51,46 +59,25 @@ namespace Voidless
 
         /// <summary>ObjectQuadTree's constructor.</summary>
         /// <param name="_boundary">QuadTree's boundaries.</param>
-        public QuadTree(Rect _boundary)
+        /// <param name="getRect">Rect function [null by default].</param>
+        public ObjectQuadTree(Rect _boundary, Func<T, Rect> getRect = null)
         {
             boundary = _boundary;
-            objects = new List<Rect>();
-            children = new QuadTree[MAX_POINTSPERNODE];
-        }
-
-        /// <summary>Tries to insert point into QuadTree.</summary>
-        /// <param name="_point">Point to add.</param>
-        /// <returns>True if point was successfully added (whether here or within children).</returns>
-        public bool Insert(Vector2 _point)
-        {
-            if(!boundary.Contains(_point)) return false;
-        
-            Rect rect = new Rect(_point, Vector2.zero);
-
-            /// Add the point if there is still room.
-            if(objects.Count < MAX_POINTSPERNODE)
-            {
-                objects.Add(rect);
-                return true;
-            }
-
-            /// Subdivide if necessary.
-            if(!subdivided) Subdivide();
-
-            foreach(QuadTree child in children)
-            {
-                if(child.Insert(_point)) return true;
-            }
-
-            return false;
+            GetRect = getRect;
+            objects = new HashSet<T>();
+            children = new ObjectQuadTree<T>[MAX_POINTSPERNODE];
         }
 
         /// <summary>Tries to insert object into QuadTree.</summary>
-        /// <param name="_object">Rect to add.</param>
+        /// <param name="_object">Object to add.</param>
         /// <returns>True if object was successfully added (whether here or within children).</returns>
-        public bool Insert(Rect _object)
+        public bool Insert(T _object)
         {
-            if(!boundary.Contains(_object)) return false;
+            if(GetRect == null) return false;
+
+            Rect rect = GetRect(_object);
+
+            if(!boundary.Contains(rect)) return false;
 
             /// Add the point if there is still room.
             if(objects.Count < MAX_POINTSPERNODE)
@@ -102,7 +89,7 @@ namespace Voidless
             /// Subdivide if necessary.
             if(!subdivided) Subdivide();
 
-            foreach(QuadTree child in children)
+            foreach(ObjectQuadTree<T> child in children)
             {
                 if(child.Insert(_object)) return true;
             }
@@ -110,13 +97,17 @@ namespace Voidless
             return false;
         }
 
-        /// <summary>Removes Point.</summary>
-        /// <param name="_object">Point to remove [if it is contained within QuadTree].</param>
+        /// <summary>Removes Object.</summary>
+        /// <param name="_object">Object to remove [if it is contained within QuadTree].</param>
         /// <returns>True if it was successfully removed.</returns>
-        public bool Remove(Rect _object)
+        public bool Remove(T _object)
         {
+            if (GetRect == null) return false;
+
+            Rect rect = GetRect(_object);
+
             // If the object doesn't belong in this boundary, return false
-            if (!boundary.Contains(_object)) return false;
+            if (!boundary.Contains(rect)) return false;
 
             // If the object is in this node, remove it
             if (objects.Remove(_object)) return true;
@@ -124,7 +115,7 @@ namespace Voidless
             // Try to remove the object from the children
             if (subdivided)
             {
-                foreach (QuadTree child in children)
+                foreach (ObjectQuadTree<T> child in children)
                 {
                     if (child.Remove(_object)) return true;
                 }
@@ -136,7 +127,7 @@ namespace Voidless
         /// \TODO Improve this to be more efficient.
         /// <summary>Updates Object [if it did move from position].</summary>
         /// <param name="_object">Object to update.</param>
-        public void UpdateObject(Rect _object)
+        public void UpdateObject(T _object)
         {
             Remove(_object);
             Insert(_object);
@@ -149,18 +140,18 @@ namespace Voidless
             float hHeight = boundary.height * 0.5f;
             Vector2 c = boundary.center;
 
-            children[0] = new QuadTree(new Rect(c.x, c.y, hWidth, hHeight)); // NE
-            children[1] = new QuadTree(new Rect(c.x - hWidth, c.y, hWidth, hHeight)); // NW
-            children[2] = new QuadTree(new Rect(c.x, c.y - hHeight, hWidth, hHeight)); // SE
-            children[3] = new QuadTree(new Rect(c.x - hWidth, c.y - hHeight, hWidth, hHeight)); // SW
+            children[0] = new ObjectQuadTree<T>(new Rect(c.x, c.y, hWidth, hHeight), GetRect); // NE
+            children[1] = new ObjectQuadTree<T>(new Rect(c.x - hWidth, c.y, hWidth, hHeight), GetRect); // NW
+            children[2] = new ObjectQuadTree<T>(new Rect(c.x, c.y - hHeight, hWidth, hHeight), GetRect); // SE
+            children[3] = new ObjectQuadTree<T>(new Rect(c.x - hWidth, c.y - hHeight, hWidth, hHeight), GetRect); // SW
 
             subdivided = true;
 
             // Redistribute objects to children
-            foreach (Rect obj in objects)
+            foreach (T obj in objects)
             {
                 bool added = false;
-                foreach (QuadTree child in children)
+                foreach (ObjectQuadTree<T> child in children)
                 {
                     if (child.Insert(obj))
                     {
@@ -183,19 +174,21 @@ namespace Voidless
         /// <param name="_range">Query's Range.</param>
         /// <param name="_found">List of found objects passed by reference.</param>
         /// <returns>List of found objects within range.</returns>
-        public List<Rect> Query(Rect _range, ref List<Rect> _found, bool _resetList = true)
+        public List<T> Query(Rect _range, ref List<T> _found, bool _resetList = true)
         {
-            if(_found == null) _found = new List<Rect>();
+            if(_found == null) _found = new List<T>();
             if(_resetList) _found.Clear();
+
+            if(GetRect == null) return null;
 
             if(!VRect.Intersects(boundary, _range)) return _found;
 
-            foreach(Rect obj in objects)
+            foreach(T obj in objects)
             {
-                if(VRect.Contains(_range, obj)) _found.Add(obj);
+                if(VRect.Contains(_range, GetRect(obj))) _found.Add(obj);
             }
 
-            if(subdivided) foreach(QuadTree child in children)
+            if(subdivided) foreach(ObjectQuadTree<T> child in children)
             {
                 child.Query(_range, ref _found, false);
             }
@@ -207,48 +200,89 @@ namespace Voidless
         /// <param name="_object">Reference object.</param>
         /// <param name="_distance">Distance radius.</param>
         /// <returns>Neighbors inside the distance radius of the referenced object.</returns>
-        public List<Rect> FindNeighbors(Rect _object, float _distance, ref List<Rect> _neighbors)
+        public List<T> FindNeighbors(T _object, float _distance, ref List<T> _neighbors)
         {
             float d = _distance * 2.0f;
-            Rect searchArea = new Rect(_object.center, new Vector2(d, d));
+            Rect searchArea = new Rect(GetRect(_object).center, new Vector2(d, d));
             return Query(searchArea, ref _neighbors);
         }
 
+        /// <summary>Draws Gizmos, to this QuadTree and children QuadTrees.</summary>
         public void DrawGizmos()
         {
             VGizmos.DrawWireRect(boundary);
+         
+            if(GetRect == null) return;
             
-            if(objects != null) foreach(Rect obj in objects)
+            if(objects != null) foreach(T obj in objects)
             {
-                if(obj.size.sqrMagnitude > 0.1f) VGizmos.DrawWireRect(obj);
-                else Gizmos.DrawSphere(obj.center, 0.05f);
+                Rect rect = GetRect(obj);
+
+                if(rect.size.sqrMagnitude > 0.1f) VGizmos.DrawWireRect(rect);
+                else Gizmos.DrawSphere(rect.center, 0.05f);
             }
 
-            if(children != null) foreach(QuadTree child in children)
+            if(children != null) foreach(ObjectQuadTree<T> child in children)
             {
                 if(child != null) child.DrawGizmos();
             }
         }
 
-        public static QuadTree GenerateFromPoints(params Vector2[] points)
+#region StaticHelperFunctions:
+        /// <returns>Rect from Collider.</returns>
+        public static Rect GetColliderRect(Collider _collider) { return _collider.bounds.ToRect(); }
+
+        /// <returns>Rect from Collider2D.</returns>
+        public static Rect GetCollider2DRect(Collider2D _collider) { return _collider.bounds.ToRect(); }
+
+        /// <returns>Rect from Renderer [includes SpriteRenderer].</returns>
+        public static Rect GetRendererRect(Renderer _renderer) { return _renderer.bounds.ToRect(); }
+
+        /// <summary>Creates a Collider's QuadTree.</summary>
+        /// <param name="_boundary">QuadTree's boundaries.</param>
+        public static ObjectQuadTree<Collider> CreateColliderQuadTree(Rect _boundary)
         {
-            if(points == null || points.Length == 0) return null;
+            return new ObjectQuadTree<Collider>(_boundary, GetColliderRect);
+        }
 
-            Rect b = VRect.GetRectToFitSet(points);
-            QuadTree tree = new QuadTree(b);
+        /// <summary>Creates a Collider2D's QuadTree.</summary>
+        /// <param name="_boundary">QuadTree's boundaries.</param>
+        public static ObjectQuadTree<Collider2D> CreateCollider2DQuadTree(Rect _boundary)
+        {
+            return new ObjectQuadTree<Collider2D>(_boundary, GetCollider2DRect);
+        }
 
-            foreach(Vector2 point in points)
+        /// <summary>Creates a Renderer's QuadTree.</summary>
+        /// <param name="_boundary">QuadTree's boundaries.</param>
+        public static ObjectQuadTree<Renderer> CreateRendererQuadTree(Rect _boundary)
+        {
+            return new ObjectQuadTree<Renderer>(_boundary, GetRendererRect);
+        }
+
+
+        /// <summary>Generates QuadTree from set of objects.</summary>
+        /// <param name="getRect">Rect function.</param>
+        /// <param name="_objects">Set of objects.</param>
+        public static ObjectQuadTree<T> GenerateFromObjects(Func<T, Rect> getRect, params T[] _objects)
+        {
+            if(_objects == null || _objects.Length == 0 || getRect == null) return null;
+
+            Rect b = VRect.GetRectToFitSet<T>(getRect, _objects);
+            ObjectQuadTree<T> tree = new ObjectQuadTree<T>(b, getRect);
+
+            foreach(T obj in _objects)
             {
-                tree.Insert(point);
+                tree.Insert(obj);
             }
 
             return tree;
         }
+#endregion
 
 #region InterfaceImplementations:
         /// <summary>Adds Item into QuadTree [internally calls for Insert without returning result].</summary>
         /// <param name="item">Item to add.</param>
-        public void Add(Rect item)
+        public void Add(T item)
         {
             Insert(item);
         }
@@ -260,11 +294,11 @@ namespace Voidless
         }
 
         /// <returns>True if item is contained within QuadTree, or children if that's the case.</returns>
-        public bool Contains(Rect item)
+        public bool Contains(T item)
         {
             if(objects.Contains(item)) return true;
 
-            foreach(QuadTree child in children)
+            foreach(ObjectQuadTree<T> child in children)
             {
                 if(child.Contains(item)) return true;
             }
@@ -273,13 +307,13 @@ namespace Voidless
         }
 
         /// <summary>Copies element [NOT IMPLEMENTED].</summary>
-        public void CopyTo(Rect[] array, int arrayIndex)
+        public void CopyTo(T[] array, int arrayIndex)
         {
             throw new NotImplementedException();
         }
 
         /// <returns>Iteration through collection of objects.</returns>
-        public IEnumerator<Rect> GetEnumerator()
+        public IEnumerator<T> GetEnumerator()
         {
             return objects.GetEnumerator();
         }
@@ -287,12 +321,13 @@ namespace Voidless
         /// <returns>Iteration through collection of objects.</returns>
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return objects.GetEnumerator();
+            throw new NotImplementedException();
         }
 
-        IEnumerator<QuadTree> IEnumerable<QuadTree>.GetEnumerator()
+        /// <returns>Iteration through children QuadTrees.</returns>
+        IEnumerator<ObjectQuadTree<T>> IEnumerable<ObjectQuadTree<T>>.GetEnumerator()
         {
-            foreach (QuadTree child in children)
+            foreach (ObjectQuadTree<T> child in children)
             {
                 yield return child;
             }

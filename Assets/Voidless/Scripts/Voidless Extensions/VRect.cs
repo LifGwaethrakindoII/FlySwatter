@@ -7,6 +7,11 @@ namespace Voidless
 {
 	public static class VRect
 	{
+		public static Rect ToRect(this Bounds _bounds)
+		{
+			return FromCenter(_bounds.center, _bounds.size);
+		}
+
 		public static Vector2 Extents(this Rect _rect)
 		{
 			return _rect.size * 0.5f;
@@ -194,6 +199,34 @@ namespace Voidless
 			for(int i = 1; i < length; i++)
 			{
 				b = new Rect(_points[i], Vector2.zero);
+				a = VMath.GetRectToFitPair(a, b);
+			}
+
+			return a;
+		}
+
+		/// <summary>Calculates Rect that better fit a given set of Rect.</summary>
+		/// <param name="_bounds">Set of Rect.</param>
+		/// <returns>Rect that fit set of Rect [it will return default Rect if the set is empty].</returns>
+		public static Rect GetRectToFitSet<T>(Func<T, Rect> getRect, params T[] _objects)
+		{
+			int length = _objects.Length;
+
+			if(_objects == null || length == 0)
+			{
+#if UNITY_EDITOR
+				Debug.Log("[VRect] No Rect provided as argument, returning a default Rect' structure...");
+#endif
+				return new Rect();
+
+			} else if(length == 1) return getRect(_objects[0]);
+
+			Rect a = getRect(_objects[0]);
+			Rect b = default(Rect);
+
+			for(int i = 1; i < length; i++)
+			{
+				b = getRect(_objects[i]);
 				a = VMath.GetRectToFitPair(a, b);
 			}
 
