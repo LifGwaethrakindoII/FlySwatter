@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Voidless
 {
     [Serializable]
-    public class ObjectQuadTree<T> : ICollection<T>, IEnumerable<T>, IEnumerable<ObjectQuadTree<T>>
+    public class ObjectQuadTree<T> : /*ICollection<T>, */IEnumerable<T>, IEnumerable<ObjectQuadTree<T>>
     {
         public const int MAX_POINTSPERNODE = 4;
 

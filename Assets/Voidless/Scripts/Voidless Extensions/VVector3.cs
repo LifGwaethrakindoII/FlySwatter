@@ -517,6 +517,38 @@ namespace Voidless
 		}
 
 		/// <summary>Generates a vector with random component values.</summary>
+		/// <param name="min">Random's Minimum value.</param>
+		/// <param name="max">Random's Maximum value.</param>
+		/// <returns>Vector with random ranged component's values.</returns>
+		public static Vector3 Random(float min, float max)
+		{
+			return new Vector3
+			(
+				UnityEngine.Random.Range(min, max),
+				UnityEngine.Random.Range(min, max),
+				UnityEngine.Random.Range(min, max)
+			);
+		}
+
+		/// <summary>Generates a vector with random component values.</summary>
+		/// <param name="minX">Random's Minimum value for X.</param>
+		/// <param name="maxX">Random's Maximum value for X.</param>
+		/// <param name="minY">Random's Minimum value for Y.</param>
+		/// <param name="maxY">Random's Maximum value for Y.</param>
+		/// <param name="minZ">Random's Minimum value for Z.</param>
+		/// <param name="maxZ">Random's Maximum value for Z.</param>
+		/// <returns>Vector with random ranged component's values.</returns>
+		public static Vector3 Random(float minX, float maxX, float minY, float maxY, float minZ, float maxZ)
+		{
+			return new Vector3
+			(
+				UnityEngine.Random.Range(minX, maxX),
+				UnityEngine.Random.Range(minY, maxY),
+				UnityEngine.Random.Range(minZ, maxZ)
+			);
+		}
+
+		/// <summary>Generates a vector with random component values.</summary>
 		/// <param name="_randomRange">Random's Range.</param>
 		/// <returns>Vector with random ranged component's values.</returns>
 		public static Vector3 Random(FloatRange _randomRange)

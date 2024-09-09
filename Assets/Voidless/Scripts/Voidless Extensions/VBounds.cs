@@ -121,10 +121,69 @@ namespace Voidless
 			return a;
 		}
 
-		/// <summary>Calculates Bounds that better fit a given set of Bounds contained in a set of Renderers.</summary>
-		/// <param name="_renderers">Set of Renderers [which contains Bounds].</param>
+		/// <summary>Calculates Bounds that better fit a given set of Bounds.</summary>
+		/// <param name="_points">Set of Bounds.</param>
 		/// <returns>Bounds that fit set of Bounds [it will return default Bounds if the set is empty].</returns>
-		public static Bounds GetBoundsToFitSet(params Renderer[] _renderers)
+		public static Bounds GetBoundsToFitSet(params Vector3[] _points)
+		{
+			int length = _points.Length;
+
+			if(_points == null || length == 0)
+			{
+#if UNITY_EDITOR
+				Debug.Log("[VBounds] No Bounds provided as argument, returning a default Bounds' structure...");
+#endif
+				return new Bounds();
+
+			} else if(length == 1) return new Bounds(_points[0], Vector3.zero);
+
+			Bounds a = new Bounds(_points[0], Vector3.zero);
+			Bounds b = default(Bounds);
+
+			for(int i = 1; i < length; i++)
+			{
+				b = new Bounds(_points[i], Vector3.zero);
+				a = VMath.GetBoundsToFitPair(a, b);
+			}
+
+			return a;
+		}
+
+        /// <summary>Calculates Bounds that better fit a given set of Bounds contained in a set of Renderers.</summary>
+        /// <param name="_objects">Set of Renderers [which contains Bounds].</param>
+        /// <returns>Bounds that fit set of Bounds [it will return default Bounds if the set is empty].</returns>
+        public static Bounds GetBoundsToFitSet<T>(Func<T, Bounds> getBounds, params T[] _objects)
+        {
+            int length = _objects.Length;
+
+            if (_objects == null || length == 0)
+            {
+#if UNITY_EDITOR
+                Debug.Log("[VBounds] No Bounds provided as argument, returning a default Bounds' structure...");
+#endif
+                return new Bounds();
+
+            }
+            else if (length == 1) return getBounds(_objects[0]);
+
+            Bounds a = getBounds(_objects[0]);
+            Bounds b = default(Bounds);
+
+            for (int i = 1; i < length; i++)
+            {
+                if (_objects[i] == null) continue;
+
+                b = getBounds(_objects[i]);
+                a = VMath.GetBoundsToFitPair(a, b);
+            }
+
+            return a;
+        }
+
+        /// <summary>Calculates Bounds that better fit a given set of Bounds contained in a set of Renderers.</summary>
+        /// <param name="_renderers">Set of Renderers [which contains Bounds].</param>
+        /// <returns>Bounds that fit set of Bounds [it will return default Bounds if the set is empty].</returns>
+        public static Bounds GetBoundsToFitSet(params Renderer[] _renderers)
 		{
 			int length = _renderers.Length;
 
