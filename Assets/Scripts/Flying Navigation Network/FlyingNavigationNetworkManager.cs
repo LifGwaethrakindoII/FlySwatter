@@ -19,7 +19,7 @@ namespace Voidless.FlySwatter
         private IPathFindingNode<Vector3> start;
         private IPathFindingNode<Vector3> end;
         private List<IPathFindingNode<Vector3>> path;
-        [SerializeField] private QuadTree quadTree;
+        [SerializeField] private RectQuadTree quadTree;
         [SerializeField] private Vector2[] points;
 
         /// <summary>Gets networkData property.</summary>
@@ -111,7 +111,7 @@ namespace Voidless.FlySwatter
                 points[i] = VVector2.Random(range);
             }
 
-            quadTree = QuadTree.GenerateFromPoints(points);
+            quadTree = RectQuadTree.GenerateFromPoints(points);
         }
 
         [Button("Bake Network")]

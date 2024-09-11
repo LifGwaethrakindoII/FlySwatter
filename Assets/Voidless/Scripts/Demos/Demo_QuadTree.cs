@@ -9,9 +9,9 @@ namespace Voidless.Demos
     {
         [SerializeField] private Vector2 boundaries;
         [SerializeField] private Vector2[] points;
-        [SerializeField] private QuadTree quadTree;
+        [SerializeField] private RectQuadTree quadTree;
 
-        /// <summary>Draws Gizmos on Editor mode when Demo_QuadTree's instance is selected.</summary>
+        /// <summary>Draws Gizmos on Editor mode when Demo_RectQuadTree's instance is selected.</summary>
         private void OnDrawGizmosSelected()
         {
             if(quadTree == null) return;
@@ -21,9 +21,9 @@ namespace Voidless.Demos
         }
 
         [Button("Generate Quad-Tree")]
-        /// <summary>Generates QuadTree with the given amount of random points scattered across the boundaries.</summary>
+        /// <summary>Generates RectQuadTree with the given amount of random points scattered across the boundaries.</summary>
         /// <param name="size">Size of set of points [20 by default].</param>
-        private void GenerateQuadTree(int size = 20)
+        private void GenerateRectQuadTree(int size = 20)
         {
             size = Mathf.Max(size, 20);
 
@@ -37,7 +37,7 @@ namespace Voidless.Demos
                 points[i] = VVector2.Random(-hx, hx, -hy, hy);
             }
 
-            quadTree = QuadTree.GenerateFromPoints(points);
+            quadTree = RectQuadTree.GenerateFromPoints(points);
         }
     }
 }

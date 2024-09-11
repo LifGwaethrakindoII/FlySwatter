@@ -6,297 +6,150 @@ using UnityEngine;
 namespace Voidless
 {
     [Serializable]
-    public class QuadTree : /*ICollection<Rect>, */IEnumerable<QuadTree>, IEnumerable<Rect>
+    public class QuadTree<T> : SpacePartitioningTree<T, Rect>
     {
         public const int MAX_POINTSPERNODE = 4;
 
-        [SerializeField] private Rect _boundary;
-        private List<Rect> _objects;
-        private QuadTree[] _children;
-        private bool _subdivided;
-        
-        /// <summary>Gets and Sets boundary property.</summary>
-        public Rect boundary
-        {
-            get { return _boundary; }
-            set { _boundary = value; }
-        }
+        /// <summary>Gets max children's capacity.</summary>
+        public override int maxChildCapacity { get { return MAX_POINTSPERNODE; } }
 
-        /// <summary>Gets and Sets objects property.</summary>
-        public List<Rect> objects
-        {
-            get { return _objects; }
-            private set { _objects = value; }
-        }
+        /// <summary>Gets max object's capacity.</summary>
+        public override int maxObjectCapacity { get { return MAX_POINTSPERNODE; } }
 
-        /// <summary>Gets and Sets children property.</summary>
-        public QuadTree[] children
-        {
-            get { return _children; }
-            private set { _children = value; }
-        }
+        /// <summary>ObjectRectQuadTree's constructor.</summary>
+        /// <param name="_boundary">RectQuadTree's boundaries.</param>
+        public QuadTree(Rect _boundary, Func<T, Rect> getRect = null) : base(_boundary, getRect) { /*...*/ }
 
-        /// <summary>Gets and Sets subdivided property.</summary>
-        public bool subdivided
-        {
-            get { return _subdivided; }
-            private set { _subdivided = value; }
-        }
+        /// <summary>Gets Position.</summary>
+        /// <param name="p">Position [as Vector3].</param>
+        public override Vector3 GetPosition() { return boundary.center; }
 
-        /// <returns>Collection's Count.</returns>
-        public int Count { get { return children != null ? children.Length : 0; } }
+        /// <summary>Gets Position.</summary>
+        /// <param name="d">Dimensions [as Vector3].</param>
+        public override Vector3 GetDimensions() { return boundary.size; }
 
-        /// <returns>False [it is a write/read structure].</returns>
-        public bool IsReadOnly { get { return false; } }
+        /// <summary>Gets Position.</summary>
+        /// <param name="p">Position [as Vector2].</param>
+        public override Vector2 Get2DPosition() { return boundary.center; }
 
-        /// <summary>ObjectQuadTree's constructor.</summary>
-        /// <param name="_boundary">QuadTree's boundaries.</param>
-        public QuadTree(Rect _boundary)
-        {
-            boundary = _boundary;
-            objects = new List<Rect>();
-            children = new QuadTree[MAX_POINTSPERNODE];
-        }
+        /// <summary>Gets Position.</summary>
+        /// <param name="d">Dimensions [as Vector2].</param>
+        public override Vector2 Get2DDimensions() { return boundary.size; }
 
-        /// <summary>Tries to insert point into QuadTree.</summary>
-        /// <param name="_point">Point to add.</param>
-        /// <returns>True if point was successfully added (whether here or within children).</returns>
-        public bool Insert(Vector2 _point)
-        {
-            if(!boundary.Contains(_point)) return false;
-        
-            Rect rect = new Rect(_point, Vector2.zero);
+        /// <summary>Sets Position.</summary>
+        /// <param name="p">Position [as Vector3].</param>
+        public override void SetPosition(Vector3 p) { _boundary.position = p; }
 
-            /// Add the point if there is still room.
-            if(objects.Count < MAX_POINTSPERNODE)
-            {
-                objects.Add(rect);
-                return true;
-            }
+        /// <summary>Sets Position.</summary>
+        /// <param name="d">Dimensions [as Vector3].</param>
+        public override void SetDimensions(Vector3 d) { _boundary.size = d; }
 
-            /// Subdivide if necessary.
-            if(!subdivided) Subdivide();
+        /// <summary>Sets Position.</summary>
+        /// <param name="p">Position [as Vector2].</param>
+        public override void SetPosition(Vector2 p) { _boundary.position = p; }
 
-            foreach(QuadTree child in children)
-            {
-                if(child.Insert(_point)) return true;
-            }
+        /// <summary>Sets Position.</summary>
+        /// <param name="d">Dimensions [as Vector2].</param>
+        public override void SetDimensions(Vector2 d) { _boundary.size = d; }
 
-            return false;
-        }
+        /// <summary>Gets Position from Object.</summary>
+        /// <param name="_object">Object's reference.</param>
+        /// <param name="p">Object's position [as Vector3].</param>
+        public override Vector3 GetObjectPosition(T _object) { return GetObjectBoundary != null ? GetObjectBoundary(_object).position : Vector3.zero; }
 
-        /// <summary>Tries to insert object into QuadTree.</summary>
-        /// <param name="_object">Rect to add.</param>
-        /// <returns>True if object was successfully added (whether here or within children).</returns>
-        public bool Insert(Rect _object)
-        {
-            if(!boundary.Contains(_object)) return false;
+        /// <summary>Gets Position from Object.</summary>
+        /// <param name="_object">Object's reference.</param>
+        /// <param name="d">Object's dimensions [as Vector3].</param>
+        public override Vector3 GetObjectDimensions(T _object) { return GetObjectBoundary != null ? GetObjectBoundary(_object).size : Vector3.zero; }
 
-            /// Add the point if there is still room.
-            if(objects.Count < MAX_POINTSPERNODE)
-            {
-                objects.Add(_object);
-                return true;
-            }
+        /// <summary>Gets Position from Object.</summary>
+        /// <param name="_object">Object's reference.</param>
+        /// <param name="p">Object's position [as Vector2].</param>
+        public override Vector2 GetObject2DPosition(T _object) { return GetObjectBoundary != null ? GetObjectBoundary(_object).position : Vector3.zero; }
 
-            /// Subdivide if necessary.
-            if(!subdivided) Subdivide();
-
-            foreach(QuadTree child in children)
-            {
-                if(child.Insert(_object)) return true;
-            }
-
-            return false;
-        }
-
-        /// <summary>Removes Point.</summary>
-        /// <param name="_object">Point to remove [if it is contained within QuadTree].</param>
-        /// <returns>True if it was successfully removed.</returns>
-        public bool Remove(Rect _object)
-        {
-            // If the object doesn't belong in this boundary, return false
-            if (!boundary.Contains(_object)) return false;
-
-            // If the object is in this node, remove it
-            if (objects.Remove(_object)) return true;
-
-            // Try to remove the object from the children
-            if (subdivided)
-            {
-                foreach (QuadTree child in children)
-                {
-                    if (child.Remove(_object)) return true;
-                }
-            }
-
-            return false;
-        }
-
-        /// \TODO Improve this to be more efficient.
-        /// <summary>Updates Object [if it did move from position].</summary>
-        /// <param name="_object">Object to update.</param>
-        public void UpdateObject(Rect _object)
-        {
-            Remove(_object);
-            Insert(_object);
-        }
+        /// <summary>Gets Position from Object.</summary>
+        /// <param name="_object">Object's reference.</param>
+        /// <param name="d">Object's dimensions [as Vector2].</param>
+        public override Vector2 GetObject2DDimensions(T _object) { return GetObjectBoundary != null ? GetObjectBoundary(_object).size : Vector3.zero; }
 
         /// <summary>Subdivides QuadTree into 4 more sub-QuadTrees.</summary>
-        private void Subdivide()
+        public override void Subdivide()
         {
             float hWidth = boundary.width * 0.5f;
             float hHeight = boundary.height * 0.5f;
             Vector2 c = boundary.center;
 
-            children[0] = new QuadTree(new Rect(c.x, c.y, hWidth, hHeight)); // NE
-            children[1] = new QuadTree(new Rect(c.x - hWidth, c.y, hWidth, hHeight)); // NW
-            children[2] = new QuadTree(new Rect(c.x, c.y - hHeight, hWidth, hHeight)); // SE
-            children[3] = new QuadTree(new Rect(c.x - hWidth, c.y - hHeight, hWidth, hHeight)); // SW
+            children[0] = new QuadTree<T>(new Rect(c.x, c.y, hWidth, hHeight), GetObjectBoundary); // NE
+            children[1] = new QuadTree<T>(new Rect(c.x - hWidth, c.y, hWidth, hHeight), GetObjectBoundary); // NW
+            children[2] = new QuadTree<T>(new Rect(c.x, c.y - hHeight, hWidth, hHeight), GetObjectBoundary); // SE
+            children[3] = new QuadTree<T>(new Rect(c.x - hWidth, c.y - hHeight, hWidth, hHeight), GetObjectBoundary); // SW
 
             subdivided = true;
-
-            // Redistribute objects to children
-            foreach (Rect obj in objects)
-            {
-                bool added = false;
-                foreach (QuadTree child in children)
-                {
-                    if (child.Insert(obj))
-                    {
-                        added = true;
-                        break;
-                    }
-                }
-                // If the object can't fit in any child, leave it in the parent
-                if (!added)
-                {
-                    break;
-                }
-            }
-
-            // Clear the current objects if they are fully moved into children
-            objects.Clear();
+            OnAfterSubdivided();
         }
 
-        /// <summary>Gets Objets within given range.</summary>
-        /// <param name="_range">Query's Range.</param>
-        /// <param name="_found">List of found objects passed by reference.</param>
-        /// <returns>List of found objects within range.</returns>
-        public List<Rect> Query(Rect _range, ref List<Rect> _found, bool _resetList = true)
+        /// <summary>Checks if tree, or children, contain provided object.</summary>
+        /// <param name="_object">Object to evaluate.</param>
+        /// <returns>True if object is contained within tree or children.</returns>
+        public override bool Contains(T _object)
         {
-            if(_found == null) _found = new List<Rect>();
-            if(_resetList) _found.Clear();
-
-            if(!VRect.Intersects(boundary, _range)) return _found;
-
-            foreach(Rect obj in objects)
-            {
-                if(VRect.Contains(_range, obj)) _found.Add(obj);
-            }
-
-            if(subdivided) foreach(QuadTree child in children)
-            {
-                child.Query(_range, ref _found, false);
-            }
-
-            return _found;
+            return GetObjectBoundary != null ? boundary.Contains(GetObjectBoundary(_object)) : false;
         }
 
-        /// <summary>Finds Neighbors at a given distance radius.</summary>
-        /// <param name="_object">Reference object.</param>
-        /// <param name="_distance">Distance radius.</param>
-        /// <returns>Neighbors inside the distance radius of the referenced object.</returns>
-        public List<Rect> FindNeighbors(Rect _object, float _distance, ref List<Rect> _neighbors)
+        /// <summary>Checks if tree, or children, contain provided object.</summary>
+        /// <param name="_boundary">Boundar to evaluate.</param>
+        /// <param name="_object">Object to evaluate.</param>
+        /// <returns>True if object is contained within tree or children.</returns>
+        public override bool Contains(Rect _boundary, T _object)
+        {
+            return GetObjectBoundary != null ? _boundary.Contains(GetObjectBoundary(_object)) : false;
+        }
+
+        /// <summary>Evaluates if object intersects with this tree's boundary.</summary>
+        /// <param name="_object">Object to evaluate.</param>
+        /// <returns>True if object intersects with tree's boundary</returns>
+        public override bool Intersects(T _object)
+        {
+            return GetObjectBoundary != null ? VRect.Intersects(boundary, GetObjectBoundary(_object)) : false;
+        }
+
+        /// <summary>Evaluates if 2 boundaries intersect.</summary>
+        /// <param name="a">Boundary A.</param>
+        /// <param name="b">Boundary B.</param>
+        /// <returns>True if object intersects with tree's boundary</returns>
+        public override bool Intersects(Rect a, Rect b)
+        {
+            return VRect.Intersects(a, b);
+        }
+
+        /// <summary>Gets Neighbors from given object.</summary>
+        /// <param name="_object">Refrence object.</param>
+        /// <param name="_distance">Distance Radius.</param>
+        /// /// <param name="_neighbors">Reference to List of found neighbors.</param>
+        public override List<T> FindNeighbors(T _object, float _distance, ref List<T> _neighbors)
         {
             float d = _distance * 2.0f;
-            Rect searchArea = new Rect(_object.center, new Vector2(d, d));
+            Rect searchArea = new Rect(GetObjectBoundary(_object).center, new Vector2(d, d));
             return Query(searchArea, ref _neighbors);
         }
 
-        public void DrawGizmos()
+        /// <summary>Draws Gizmos [use on either OnDrawGizmos or OnDrawGizmosSelected].</summary>
+        public override void DrawGizmos()
         {
             VGizmos.DrawWireRect(boundary);
             
-            if(objects != null) foreach(Rect obj in objects)
+            if(objects != null) foreach(T obj in objects)
             {
-                if(obj.size.sqrMagnitude > 0.1f) VGizmos.DrawWireRect(obj);
-                else Gizmos.DrawSphere(obj.center, 0.05f);
+                Rect boundaries = GetObjectBoundary(obj);
+
+                if(boundaries.size.sqrMagnitude > 0.1f) VGizmos.DrawWireRect(boundaries);
+                else Gizmos.DrawSphere(boundaries.center, 0.05f);
             }
 
-            if(children != null) foreach(QuadTree child in children)
+            if(children != null) foreach(QuadTree<T> child in children)
             {
                 if(child != null) child.DrawGizmos();
             }
         }
-
-        public static QuadTree GenerateFromPoints(params Vector2[] points)
-        {
-            if(points == null || points.Length == 0) return null;
-
-            Rect b = VRect.GetRectToFitSet(points);
-            QuadTree tree = new QuadTree(b);
-
-            foreach(Vector2 point in points)
-            {
-                tree.Insert(point);
-            }
-
-            return tree;
-        }
-
-#region InterfaceImplementations:
-        /// <summary>Adds Item into QuadTree [internally calls for Insert without returning result].</summary>
-        /// <param name="item">Item to add.</param>
-        public void Add(Rect item)
-        {
-            Insert(item);
-        }
-
-        /// <summary>Clears Collection.</summary>
-        public void Clear()
-        {
-            objects.Clear();
-        }
-
-        /// <returns>True if item is contained within QuadTree, or children if that's the case.</returns>
-        public bool Contains(Rect item)
-        {
-            if(objects.Contains(item)) return true;
-
-            foreach(QuadTree child in children)
-            {
-                if(child.Contains(item)) return true;
-            }
-
-            return false;
-        }
-
-        /// <summary>Copies element [NOT IMPLEMENTED].</summary>
-        public void CopyTo(Rect[] array, int arrayIndex)
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <returns>Iteration through collection of objects.</returns>
-        public IEnumerator<Rect> GetEnumerator()
-        {
-            return objects.GetEnumerator();
-        }
-
-        /// <returns>Iteration through collection of objects.</returns>
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return objects.GetEnumerator();
-        }
-
-        IEnumerator<QuadTree> IEnumerable<QuadTree>.GetEnumerator()
-        {
-            foreach (QuadTree child in children)
-            {
-                yield return child;
-            }
-        }
-#endregion
     }
 }
