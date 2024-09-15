@@ -14,13 +14,11 @@ namespace Voidless.FlySwatter
         private static readonly Color COLOR_FLYABLE;
 
         [SerializeField] private FNNData _networkData;
-        [SerializeField, HideInInspector] private PathFindingGrid grid;
         private AStarPathFindingAlgorithm pathfinding;
         private IPathFindingNode<Vector3> start;
         private IPathFindingNode<Vector3> end;
         private List<IPathFindingNode<Vector3>> path;
-        [SerializeField] private RectQuadTree quadTree;
-        [SerializeField] private Vector2[] points;
+        private PathFindingOctaTreeGrid treeGrid;
 
         /// <summary>Gets networkData property.</summary>
         public FNNData networkData { get { return _networkData; } }
@@ -36,50 +34,10 @@ namespace Voidless.FlySwatter
         /// <summary>Draws Gizmos on Editor mode when FlyingNavigationNetworkManager's instance is selected.</summary>
         private void OnDrawGizmosSelected()
         {
-            if(quadTree != null)
+            if(treeGrid != null)
             {
-                Gizmos.color = Color.yellow;
-                quadTree.DrawGizmos();
-            }
-
-            if(networkData == null) return;
-            
-            Gizmos.color = Color.cyan;
-            Gizmos.DrawWireCube(networkData.bounds.center, networkData.bounds.size);
-            
-            if(networkData.navigationGrid == null) return;
-
-            float gridSize = networkData.gridSize;
-            Vector3 gridDimensions = Vector3.one * gridSize;
-
-            foreach(FNNGridCell cell in networkData.navigationGrid)
-            {
-                Vector3 position = cell.position;
-
-                switch(cell.flyable)
-                {
-                    case true:
-                        Gizmos.color = COLOR_FLYABLE;
-                        Gizmos.DrawWireCube(position, gridDimensions);
-                    break;
-
-                    case false:
-                        Gizmos.color = COLOR_NOTFLYABLE;
-                        Gizmos.DrawCube(position, gridDimensions);
-                    break;
-                }
-            }
-
-            if(grid == null || grid.nodes == null) return;
-
-            Gizmos.color = VColor.transparentWhite;
-            int i = 0;
-
-            foreach(PathFindingNode node in grid)
-            {
-                VGizmos.DrawText(i.ToString(), node.data, Vector2.zero, Color.white);
-                Gizmos.DrawSphere(node.data, 0.05f);
-                i++;
+                treeGrid.DrawGizmos();
+                Gizmos.DrawCube(Vector3.one, Vector3.one);
             }
 
             Gizmos.color = Color.magenta;
@@ -99,61 +57,18 @@ namespace Voidless.FlySwatter
             }
         }
 
-        [Button("Generate Quad-Tree")]
-        private void GenerateQuadTree()
+        [Button("Generate Pathfinding Octa-Tree")]
+        private void GeneratePathFindingOctaTree()
         {
-            FloatRange range = new FloatRange(-10f, 10f);
-            int size = 100;
-            points = new Vector2[size];
-
-            for(int i = 0; i < size; i++)
-            {
-                points[i] = VVector2.Random(range);
-            }
-
-            quadTree = RectQuadTree.GenerateFromPoints(points);
-        }
-
-        [Button("Bake Network")]
-        private void BakeNetwork()
-        {
-            if(networkData == null) return;
-
-            Vector3 size = networkData.bounds.size;
-            Vector3 min = networkData.bounds.min;
-            float gridSize = networkData.gridSize;
-            int width = Mathf.RoundToInt(size.x / gridSize);
-            int height = Mathf.RoundToInt(size.y / gridSize);
-            int depth = Mathf.RoundToInt(size.z / gridSize);
-
-            networkData.navigationGrid = new Serializable3DArray<FNNGridCell>(width, height, depth);
-
-            for(int x = 0; x < width; x++)
-            {
-                for(int y = 0; y < height; y++)
-                {
-                    for(int z = 0; z < depth; z++)
-                    {
-                        Vector3 position = min + (new Vector3(x, y, z) * gridSize);
-                        bool flyable = !Physics.CheckSphere(position, gridSize * 0.5f, networkData.obstacleMask);
-                        networkData.navigationGrid[x, y, z] = new FNNGridCell(position, flyable);
-                    }
-                }
-            }
-        }
-
-        [Button("Test Grid")]
-        private void CreateGrid()
-        {
-            grid = networkData.ToPathFindingGrid();
+            treeGrid = networkData.ToPathFindingOctaTreeGrid();
         }
 
         [Button("Test Pathfinding")]
         private void TEST_Pathfinding(Vector3 from, Vector3 to)
         {
             pathfinding = new AStarPathFindingAlgorithm();
-            start = grid.GetClosestNode(from);
-            end = grid.GetClosestNode(to);
+            start = treeGrid.GetClosestNode(from);
+            end = treeGrid.GetClosestNode(to);
             path = pathfinding.CalculatePath(start, end);
 
             Debug.Log("[FlyingNavigationNetworkManager] Calculated Path Successfully? " + (path != null));

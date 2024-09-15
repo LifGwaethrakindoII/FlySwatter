@@ -18,7 +18,7 @@ MonoBehaviour:
   _gridSize: 1
   _obstacleMask:
     serializedVersion: 2
-    m_Bits: 2147483647
+    m_Bits: 55
   _navigationGrid:
     flattenedArray:
     - _position: {x: -5, y: -0.6, z: -5}

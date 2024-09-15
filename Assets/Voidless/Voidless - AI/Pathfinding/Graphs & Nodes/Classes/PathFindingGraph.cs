@@ -44,6 +44,9 @@ namespace Voidless.AI
             connections = new List<IPathFindingConnection<Vector3>>();
         }
 
+        /// <summary>Draws Gizmos.</summary>
+        public virtual void DrawGizmos() { /*...*/ }
+
         public IPathFindingNode<Vector3> GetClosestNode(Vector3 _data)
         {
             if(Count == 0)

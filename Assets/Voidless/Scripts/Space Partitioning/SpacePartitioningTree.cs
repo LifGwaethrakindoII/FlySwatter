@@ -12,6 +12,7 @@ namespace Voidless
         [SerializeField] private HashSet<T> _objects;
         [SerializeField] private ISpacePartitioningTree<T, B>[] _children;
         [SerializeField] private Func<T, B> getObjectBoundary;
+        [SerializeField] private Func<T, GizmosDrawParameters> getGizmosParemeters;
 
         /// <summary>Gets and Sets boundary property.</summary>
         public B boundary
@@ -46,6 +47,13 @@ namespace Voidless
         {
             get { return getObjectBoundary; }
             set { getObjectBoundary = value; }
+        }
+
+        /// <summary>Gets & Sets getGizmosParemeters  property</summary>
+        public Func<T, GizmosDrawParameters> GetGizmosParemeters 
+        {
+            get { return getGizmosParemeters ; }
+            set { getGizmosParemeters  = value; }
         }
 
         /// <summary>Gets max children's capacity.</summary>

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Voidless.AI;
@@ -29,7 +30,49 @@ namespace Voidless.FlySwatter
 			set { _navigationGrid = value; }
 		}
 
-		public PathFindingGrid ToPathFindingGrid()
+		public PathFindingOctaTreeGrid ToPathFindingOctaTreeGrid()
+		{
+			Func<PathFindingOctaTreeNode, GizmosDrawParameters> g = (n)=>
+			{
+				Color c;
+				GizmosDrawMode m;
+
+				switch (n.traversable)
+				{
+					case true:
+						c = Color.white;
+						m = GizmosDrawMode.Wired;
+					break;
+
+					case false:
+						c = VColor.transparentRed;
+						m = GizmosDrawMode.Solid;
+					break;
+				}
+				return new GizmosDrawParameters(c, m);
+			};
+
+            PathFindingOctaTreeGrid grid = new PathFindingOctaTreeGrid();
+			Collider[] colliders = Physics.OverlapBox(bounds.center, bounds.extents);
+			grid.nodeTree.GetObjectBoundary = b => b.boundaries;
+			grid.nodeTree.boundary = bounds;
+			grid.nodeTree.GetGizmosParemeters = g;
+
+			foreach(Collider collider in colliders)
+			{
+				Bounds bounds = collider.bounds;
+				bool traversable = collider.isTrigger || !collider.gameObject.InsideLayerMask(obstacleMask);
+                PathFindingOctaTreeNode node = new PathFindingOctaTreeNode(bounds.center, bounds, traversable);
+
+				Debug.Log("Bounds from " + collider.gameObject.name + ": " + bounds.ToString());
+				grid.nodeTree.Insert(node);
+			}
+
+			Debug.Log("Has function? " + grid.nodeTree.GetObjectBoundary != null);
+			return grid;
+        }
+
+        public PathFindingGrid ToPathFindingGrid()
 		{
             int width = navigationGrid.GetLength(0);
             int height = navigationGrid.GetLength(1);

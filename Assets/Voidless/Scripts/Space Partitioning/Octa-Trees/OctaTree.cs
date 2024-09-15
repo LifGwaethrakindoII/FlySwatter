@@ -8,7 +8,7 @@ namespace Voidless
     [Serializable]
     public class OctaTree<T> : SpacePartitioningTree<T, Bounds>
     {
-        public const int MAX_POINTSPERNODE = 4;
+        public const int MAX_POINTSPERNODE = 8;
 
         /// <summary>Gets max children's capacity.</summary>
         public override int maxChildCapacity { get { return MAX_POINTSPERNODE; } }
@@ -143,18 +143,37 @@ namespace Voidless
         {
             VGizmos.DrawBounds(boundary);
 
-            if (objects != null) foreach (T obj in objects)
+            if (objects != null)
+            {
+                foreach (T obj in objects)
                 {
                     Bounds boundaries = GetObjectBoundary(obj);
+
+                    if (GetGizmosParemeters != null)
+                    {
+                        GizmosDrawParameters parameters = GetGizmosParemeters(obj);
+                        Gizmos.color = parameters.color;
+                        switch (parameters.drawMode)
+                        {
+                            case GizmosDrawMode.Wired:
+                                VGizmos.DrawBounds(boundaries);
+                            break;
+
+                            case GizmosDrawMode.Solid:
+                                Gizmos.DrawCube(boundaries.center, boundaries.extents);
+                            break;
+                        }
+                    }
 
                     if (boundaries.size.sqrMagnitude > 0.1f) VGizmos.DrawBounds(boundaries);
                     else Gizmos.DrawSphere(boundaries.center, 0.05f);
                 }
+            }
 
             if (children != null) foreach (OctaTree<T> child in children)
-                {
-                    if (child != null) child.DrawGizmos();
-                }
+            {
+                if (child != null) child.DrawGizmos();
+            }
         }
     }
 }

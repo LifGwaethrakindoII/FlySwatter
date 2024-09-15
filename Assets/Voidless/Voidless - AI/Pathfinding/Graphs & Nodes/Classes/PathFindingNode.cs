@@ -64,6 +64,10 @@ namespace Voidless.AI
             set { _flags = value; }
         }
 
+        /// <summary>PathfindingNode's constructor.</summary>
+        /// <param name="_data">Data</param>
+        /// <param name="_traversable">Is it traversable? True by default.</param>
+        /// <param name="_flags">Additional flags, none by default.</param>
         public PathFindingNode(Vector3 _data, bool _traversable = true, int _flags = 0)
         {
             SetData(_data);
