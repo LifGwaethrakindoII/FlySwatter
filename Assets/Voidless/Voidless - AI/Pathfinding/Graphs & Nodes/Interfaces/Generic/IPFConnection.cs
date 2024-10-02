@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Voidless.AI
+namespace Voidless.AI.PathFinding
 {
-    public interface IPathFindingConnection<T>
+    public interface IPFConnection<T>
     {
-        IPathFindingNode<T> from { get; set; }
-        IPathFindingNode<T> to { get; set; }
+        IPFNode<T> from { get; set; }
+        IPFNode<T> to { get; set; }
         float cost { get; set; }
         bool directed { get; set; }
     }

@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Voidless.AI
+namespace Voidless.AI.PathFinding
 {
-    public interface IOutNode<out T>
+    public interface IOutPFNode<out T>
     {
         public T data { get; }
     }

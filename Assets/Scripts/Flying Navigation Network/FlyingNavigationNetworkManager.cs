@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
 using Voidless.AI;
+using Voidless.AI.PathFinding;
 using UnityEngine.Networking;
 
 namespace Voidless.FlySwatter
@@ -15,10 +16,10 @@ namespace Voidless.FlySwatter
 
         [SerializeField] private FNNData _networkData;
         private AStarPathFindingAlgorithm pathfinding;
-        private IPathFindingNode<Vector3> start;
-        private IPathFindingNode<Vector3> end;
-        private List<IPathFindingNode<Vector3>> path;
-        private PathFindingOctaTreeGrid treeGrid;
+        private IPFNode<Vector3> start;
+        private IPFNode<Vector3> end;
+        private List<IPFNode<Vector3>> path;
+        private PFOctaTreeGrid treeGrid;
 
         /// <summary>Gets networkData property.</summary>
         public FNNData networkData { get { return _networkData; } }
@@ -49,7 +50,7 @@ namespace Voidless.FlySwatter
 
             Vector3? p = null;
 
-            foreach(IPathFindingNode<Vector3> node in path)
+            foreach(IPFNode<Vector3> node in path)
             {
                 Gizmos.DrawSphere(node.data, 0.1f);
                 if(p.HasValue) Gizmos.DrawLine(p.Value, node.data);

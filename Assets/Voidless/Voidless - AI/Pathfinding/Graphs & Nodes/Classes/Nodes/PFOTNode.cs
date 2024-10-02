@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Voidless.AI
+namespace Voidless.AI.PathFinding
 {
-    public class PathFindingOctaTreeNode : PathFindingNode
+    public class PFOTNode : PFNode
     {
         private Bounds _boundaries;
 
@@ -19,7 +19,7 @@ namespace Voidless.AI
         /// <param name="_data">Data</param>
         /// <param name="_traversable">Is it traversable? True by default.</param>
         /// <param name="_flags">Additional flags, none by default.</param>
-        public PathFindingOctaTreeNode(Vector3 _data, Bounds _boundaries, bool _traversable = true, int _flags = 0) : base(_data, _traversable, _flags)
+        public PFOTNode(Vector3 _data, Bounds _boundaries, bool _traversable = true, int _flags = 0) : base(_data, _traversable, _flags)
         {
             boundaries = _boundaries;
         }

@@ -4,8 +4,8 @@ using UnityEngine;
 
 namespace Voidless.AI.PathFinding
 {
-    public interface IPathFindingAlgorithm<T>
+    public interface IPFGraph<T> : IEnumerable<IPFNode<T>>, ICollection<IPFNode<T>>
     {
-        public List<IPFNode<T>> CalculatePath(IPFNode<T> start, IPFNode<T> end);
+        IPFNode<T> GetClosestNode(T _data);
     }
 }

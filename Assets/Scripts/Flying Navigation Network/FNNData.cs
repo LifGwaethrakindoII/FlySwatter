@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Voidless.AI;
+using Voidless.AI.PathFinding;
 
 namespace Voidless.FlySwatter
 {
@@ -30,9 +31,9 @@ namespace Voidless.FlySwatter
 			set { _navigationGrid = value; }
 		}
 
-		public PathFindingOctaTreeGrid ToPathFindingOctaTreeGrid()
+		public PFOctaTreeGrid ToPathFindingOctaTreeGrid()
 		{
-			Func<PathFindingOctaTreeNode, GizmosDrawParameters> g = (n)=>
+			Func<PFOTNode, GizmosDrawParameters> g = (n)=>
 			{
 				Color c;
 				GizmosDrawMode m;
@@ -52,7 +53,7 @@ namespace Voidless.FlySwatter
 				return new GizmosDrawParameters(c, m);
 			};
 
-            PathFindingOctaTreeGrid grid = new PathFindingOctaTreeGrid();
+            PFOctaTreeGrid grid = new PFOctaTreeGrid();
 			Collider[] colliders = Physics.OverlapBox(bounds.center, bounds.extents);
 			grid.nodeTree.GetObjectBoundary = b => b.boundaries;
 			grid.nodeTree.boundary = bounds;
@@ -62,7 +63,7 @@ namespace Voidless.FlySwatter
 			{
 				Bounds bounds = collider.bounds;
 				bool traversable = collider.isTrigger || !collider.gameObject.InsideLayerMask(obstacleMask);
-                PathFindingOctaTreeNode node = new PathFindingOctaTreeNode(bounds.center, bounds, traversable);
+                PFOTNode node = new PFOTNode(bounds.center, bounds, traversable);
 
 				Debug.Log("Bounds from " + collider.gameObject.name + ": " + bounds.ToString());
 				grid.nodeTree.Insert(node);
@@ -72,12 +73,12 @@ namespace Voidless.FlySwatter
 			return grid;
         }
 
-        public PathFindingGrid ToPathFindingGrid()
+        public PFGrid ToPathFindingGrid()
 		{
             int width = navigationGrid.GetLength(0);
             int height = navigationGrid.GetLength(1);
             int depth = navigationGrid.GetLength(2);
-			PathFindingGrid graph = new PathFindingGrid(width, height, depth);
+			PFGrid graph = new PFGrid(width, height, depth);
 
             for (int x = 0; x < width; x++)
             {
@@ -86,7 +87,7 @@ namespace Voidless.FlySwatter
                     for (int z = 0; z < depth; z++)
                     {
                         FNNGridCell cell = navigationGrid[x, y, z];
-						PathFindingNode node = new PathFindingNode(cell.position, cell.flyable);
+						PFNode node = new PFNode(cell.position, cell.flyable);
 						graph.nodesGrid[x, y, z] = (node);
                     }
                 }

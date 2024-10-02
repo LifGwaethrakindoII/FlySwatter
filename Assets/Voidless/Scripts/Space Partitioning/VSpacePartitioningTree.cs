@@ -79,6 +79,11 @@ namespace Voidless
 
             return true;
         }
+
+        public static bool Contains<T>(this ISpacePartitioningTree<T, Bounds> _tree, Vector3 x)
+        {
+            return _tree.Contains(x);
+        }
         
         public static QuadTree<T> GenerateFromObjects<T>(Func<T, Rect> getRect, params T[] _objects)
         {

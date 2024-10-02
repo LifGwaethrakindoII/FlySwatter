@@ -3,23 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-namespace Voidless.AI
+namespace Voidless.AI.PathFinding
 {
     public class AStarPathFindingAlgorithm : IPathFindingAlgorithm<Vector3>
     {
-        public List<IPathFindingNode<Vector3>> CalculatePath(IPathFindingNode<Vector3> start, IPathFindingNode<Vector3> end)
+        public List<IPFNode<Vector3>> CalculatePath(IPFNode<Vector3> start, IPFNode<Vector3> end)
         {
             if(start == null || end == null) return null;
 
-            List<IPathFindingNode<Vector3>> open = new List<IPathFindingNode<Vector3>>();  // Priority Queue
-            HashSet<IPathFindingNode<Vector3>> closed = new HashSet<IPathFindingNode<Vector3>>();
+            List<IPFNode<Vector3>> open = new List<IPFNode<Vector3>>();  // Priority Queue
+            HashSet<IPFNode<Vector3>> closed = new HashSet<IPFNode<Vector3>>();
 
             open.Add(start);
 
             while (open.Count > 0)
             {
                 // Get node with lowest FCost()
-                IPathFindingNode<Vector3> currentNode = open.OrderBy(n => n.FCost()).ThenBy(n => n.hCost).First();
+                IPFNode<Vector3> currentNode = open.OrderBy(n => n.FCost()).ThenBy(n => n.hCost).First();
 
                 if (currentNode == end)
                 {
@@ -56,10 +56,10 @@ namespace Voidless.AI
             return null; // No path found
         }
 
-        private List<IPathFindingNode<Vector3>> ReconstructPath(IPathFindingNode<Vector3> node)
+        private List<IPFNode<Vector3>> ReconstructPath(IPFNode<Vector3> node)
         {
-            List<IPathFindingNode<Vector3>> path = new List<IPathFindingNode<Vector3>>();
-            IPathFindingNode<Vector3> currentNode = node;
+            List<IPFNode<Vector3>> path = new List<IPFNode<Vector3>>();
+            IPFNode<Vector3> currentNode = node;
 
             while (currentNode != null)
             {

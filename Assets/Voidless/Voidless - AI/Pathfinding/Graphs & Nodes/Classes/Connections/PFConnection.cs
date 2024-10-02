@@ -3,25 +3,25 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Voidless.AI
+namespace Voidless.AI.PathFinding
 {
     [Serializable]
-    public class PathFindingConnection : IPathFindingConnection<Vector3>
+    public class PFConnection : IPFConnection<Vector3>
     {
-        [SerializeField] private IPathFindingNode<Vector3> _from;
-        [SerializeField] private IPathFindingNode<Vector3> _to;
+        [SerializeField] private IPFNode<Vector3> _from;
+        [SerializeField] private IPFNode<Vector3> _to;
         [SerializeField] private bool _directed;
         private float? _cost;
 
         /// <summary>Gets and Sets from property.</summary>
-        public IPathFindingNode<Vector3> from
+        public IPFNode<Vector3> from
         {
             get { return _from; }
             set { _from = value; }
         }
 
         /// <summary>Gets and Sets to property.</summary>
-        public IPathFindingNode<Vector3> to
+        public IPFNode<Vector3> to
         {
             get { return _to; }
             set { _to = value; }

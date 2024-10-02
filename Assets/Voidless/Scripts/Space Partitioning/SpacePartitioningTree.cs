@@ -198,6 +198,17 @@ namespace Voidless
             Insert(_object);
         }
 
+        /// <summary>Clears Octa-Tree and children's too.</summary>
+        public void Clear()
+        {
+            if(objects != null) objects.Clear();
+            if(children != null)
+            foreach(SpacePartitioningTree<T, B> child in children)
+            {
+                child.Clear();
+            }
+        }
+
         /// <summary>Retrieves all objects within a specific query range.</summary>
         /// <param name="range">Range to query.</param>
         /// <param name="_objects">Reference to List to hold found Bounds.</param>

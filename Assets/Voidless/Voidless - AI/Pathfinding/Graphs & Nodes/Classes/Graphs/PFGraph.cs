@@ -3,51 +3,70 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Voidless.AI
+/*===========================================================================
+**
+** Class:  PFGraph
+**
+** Purpose: Graph for PathFinding.
+**
+**
+** Author: Lîf Gwaethrakindo
+**
+===========================================================================*/
+/// \TODO Create a PFGraph2D that has a QuadTree instead of OctaTree.
+namespace Voidless.AI.PathFinding
 {
     [Serializable]
-    public class PathFindingGraph : IPathFindingGraph<Vector3>
+    public class PFGraph : IPFGraph<Vector3>
     {
-        [SerializeField] private Dictionary<Vector3, IPathFindingNode<Vector3>> _mapping;
-        [SerializeField] private List<IPathFindingNode<Vector3>> _nodes;
-        [SerializeField] private List<IPathFindingConnection<Vector3>> _connections;
+        [SerializeField] private Dictionary<Vector3, IPFNode<Vector3>> _mapping;
+        [SerializeField] private List<IPFNode<Vector3>> _nodes;
+        [SerializeField] private List<IPFConnection<Vector3>> _connections;
+        [SerializeField] private OctaTree<PFOTNode> _octaTree;
         
         /// <summary>Gets and Sets mapping property.</summary>
-        public Dictionary<Vector3, IPathFindingNode<Vector3>> mapping
+        public Dictionary<Vector3, IPFNode<Vector3>> mapping
         {
             get { return _mapping; }
             set { _mapping = value; }
         }
 
         /// <summary>Gets and Sets nodes property.</summary>
-        public List<IPathFindingNode<Vector3>> nodes
+        public List<IPFNode<Vector3>> nodes
         {
             get { return _nodes; }
             set { _nodes = value; }
         }
 
         /// <summary>Gets and Sets connections property.</summary>
-        public List<IPathFindingConnection<Vector3>> connections
+        public List<IPFConnection<Vector3>> connections
         {
             get { return _connections; }
             set { _connections = value; }
+        }
+
+        /// <summary>Gets and Sets octaTree property.</summary>
+        public OctaTree<PFOTNode> octaTree
+        {
+            get { return _octaTree; }
+            set { _octaTree = value; }
         }
 
         public virtual int Count => nodes != null ? nodes.Count : 0;
 
         public bool IsReadOnly => throw new NotImplementedException();
 
-        public PathFindingGraph()
+        public PFGraph()
         {
-            mapping = new Dictionary<Vector3, IPathFindingNode<Vector3>>();
-            nodes = new List<IPathFindingNode<Vector3>>();
-            connections = new List<IPathFindingConnection<Vector3>>();
+            mapping = new Dictionary<Vector3, IPFNode<Vector3>>();
+            nodes = new List<IPFNode<Vector3>>();
+            connections = new List<IPFConnection<Vector3>>();
         }
 
         /// <summary>Draws Gizmos.</summary>
         public virtual void DrawGizmos() { /*...*/ }
 
-        public IPathFindingNode<Vector3> GetClosestNode(Vector3 _data)
+        public IPFNode<Vector3> GetClosestNode(Vector3 _data)
         {
             if(Count == 0)
             {
@@ -55,11 +74,11 @@ namespace Voidless.AI
                 return null;
             }
 
-            IPathFindingNode<Vector3> closest = null;
+            IPFNode<Vector3> closest = null;
             float minDistance = Mathf.Infinity;
             float threshold = 0.04f;
 
-            foreach(IPathFindingNode<Vector3> node in this)
+            foreach(IPFNode<Vector3> node in this)
             {
                 float sqrDistance = VVector3.SqrDistance(_data, node.data);
                 if(sqrDistance < minDistance)
@@ -75,7 +94,7 @@ namespace Voidless.AI
             return closest;
         }
 
-        public virtual IEnumerator<IPathFindingNode<Vector3>> GetEnumerator()
+        public virtual IEnumerator<IPFNode<Vector3>> GetEnumerator()
         {
             return nodes.GetEnumerator();
         }
@@ -85,9 +104,10 @@ namespace Voidless.AI
             return GetEnumerator();
         }
 
-        public void Add(IPathFindingNode<Vector3> item)
+        public void Add(IPFNode<Vector3> item)
         {
-            throw new NotImplementedException();
+            PFOTNode node = item as PFOTNode;
+            octaTree.Insert(node);
         }
 
         public void Clear()
@@ -95,17 +115,17 @@ namespace Voidless.AI
             throw new NotImplementedException();
         }
 
-        public bool Contains(IPathFindingNode<Vector3> item)
+        public bool Contains(IPFNode<Vector3> item)
         {
             throw new NotImplementedException();
         }
 
-        public void CopyTo(IPathFindingNode<Vector3>[] array, int arrayIndex)
+        public void CopyTo(IPFNode<Vector3>[] array, int arrayIndex)
         {
             throw new NotImplementedException();
         }
 
-        public bool Remove(IPathFindingNode<Vector3> item)
+        public bool Remove(IPFNode<Vector3> item)
         {
             throw new NotImplementedException();
         }

@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Voidless.AI
+namespace Voidless.AI.PathFinding
 {
-    public class PathFindingGrid : PathFindingGraph
+    public class PFGrid : PFGraph
     {
         public static readonly Vector3Int[] DIRECTIONS_NEIGHBOR;
 
-        private IPathFindingNode<Vector3>[,,] _nodesGrid;
+        private IPFNode<Vector3>[,,] _nodesGrid;
         private int _width, _height, _depth;
 
         /// <summary>Gets and Sets width property.</summary>
@@ -35,20 +35,20 @@ namespace Voidless.AI
         public override int Count => nodesGrid != null ? nodesGrid.Length : 0;
 
         /// <summary>Gets and Sets nodesGrid property.</summary>
-        public IPathFindingNode<Vector3>[,,] nodesGrid
+        public IPFNode<Vector3>[,,] nodesGrid
         {
             get { return _nodesGrid; }
             set { _nodesGrid = value; }
         }
 
-        /// <summary>Gets and Sets IPathFindingNode <Vector3>from array of IPathFindingNodes<Vector3>.</summary>
-        public IPathFindingNode <Vector3>this[int x, int y, int z]
+        /// <summary>Gets and Sets IPFNode <Vector3>from array of IPFNodes<Vector3>.</summary>
+        public IPFNode <Vector3>this[int x, int y, int z]
         {
             get { return GetNode(x, y, z); }
             set { if (IsValidPosition(x, y, z)) nodesGrid[x, y, z] = value; }
         }
 
-        static PathFindingGrid()
+        static PFGrid()
         {
             DIRECTIONS_NEIGHBOR = new Vector3Int[]
             {
@@ -61,23 +61,23 @@ namespace Voidless.AI
             };
         }
 
-        /// <summary>Gets and Sets IPathFindingNode <Vector3>from array of IPathFindingNodes<Vector3>.</summary>
-        public IPathFindingNode <Vector3>this[Vector3Int i]
+        /// <summary>Gets and Sets IPFNode <Vector3>from array of IPFNodes<Vector3>.</summary>
+        public IPFNode <Vector3>this[Vector3Int i]
         {
             get { return GetNode(i); }
             set { this[i.x, i.y, i.z] = value; }
         }
 
-        /// <summary>PathFindingGrid's constructor.</summary>
+        /// <summary>PFGrid's constructor.</summary>
         /// <param name="_width">Dimension in the X-Axis.</param>
         /// <param name="_height">Dimension in the Y-Axis.</param>
         /// <param name="_depth">Dimension in the Z-Axis.</param>
-        public PathFindingGrid(int _width, int _height, int _depth)
+        public PFGrid(int _width, int _height, int _depth)
         {
             width = _width;
             height = _height;
             depth = _depth;
-            nodesGrid = new IPathFindingNode<Vector3>[width, height, depth];
+            nodesGrid = new IPFNode<Vector3>[width, height, depth];
         }
 
         /// <summary>Evaluates whether a set of indices is valid.</summary>
@@ -104,33 +104,33 @@ namespace Voidless.AI
         /// <param name="x">X's index.</param>
         /// <param name="y">Y's index.</param>
         /// <param name="z">Z's index.</param>
-        public IPathFindingNode <Vector3>GetNode(int x, int y, int z)
+        public IPFNode <Vector3>GetNode(int x, int y, int z)
         {
             return IsValidPosition(x, y, z) ? nodesGrid[x, y, z] : null;
         }
 
         /// <summary>Returns Node given a set of indices.</summary>
         /// <param name="i">Set of indices as a Vector3Int.</param>
-        public IPathFindingNode <Vector3>GetNode(Vector3Int i)
+        public IPFNode <Vector3>GetNode(Vector3Int i)
         {
             return GetNode(i.x, i.y, i.z);
         }
 
-        public List<IPathFindingNode<Vector3>> GetNeighbors(IPathFindingNode <Vector3>node)
+        public List<IPFNode<Vector3>> GetNeighbors(IPFNode <Vector3>node)
         {
             return null;
         }
 
-        public List<IPathFindingNode<Vector3>> GetNeighbors(Vector3Int i)
+        public List<IPFNode<Vector3>> GetNeighbors(Vector3Int i)
         {
-            List<IPathFindingNode<Vector3>> neighbors = new List<IPathFindingNode<Vector3>>();
+            List<IPFNode<Vector3>> neighbors = new List<IPFNode<Vector3>>();
 
             foreach (var direction in DIRECTIONS_NEIGHBOR)
             {
                 int newX = i.x + direction.x;
                 int newY = i.y + direction.y;
                 int newZ = i.z + direction.z;
-                IPathFindingNode <Vector3>neighbor = GetNode(newX, newY, newZ);
+                IPFNode <Vector3>neighbor = GetNode(newX, newY, newZ);
 
                 // Check if the new position is within grid bounds and is walkable
                 if (IsValidPosition(newX, newY, newZ) && neighbor != null && neighbor.traversable)
@@ -156,17 +156,17 @@ namespace Voidless.AI
                 {
                     for (int z = 0; z < depth; z++)
                     {
-                        IPathFindingNode <Vector3>node = GetNode(x, y, z);
+                        IPFNode <Vector3>node = GetNode(x, y, z);
                         UpdateNeighbors(node, x, y, z);
                     }
                 }
             }
         }
 
-        public void UpdateNeighbors(IPathFindingNode <Vector3>node, int x, int y, int z)
+        public void UpdateNeighbors(IPFNode <Vector3>node, int x, int y, int z)
         {
             if(node == null) return;
-            if(node.neighbors == null) node.neighbors = new List<IPathFindingNode<Vector3>>();
+            if(node.neighbors == null) node.neighbors = new List<IPFNode<Vector3>>();
             else node.neighbors.Clear();
 
             Vector3Int currentDirection = new Vector3Int(x, y, z);
@@ -184,9 +184,9 @@ namespace Voidless.AI
             Debug.Log("Got " + count + " neighbors.");
         }
 
-        public override IEnumerator<IPathFindingNode<Vector3>> GetEnumerator()
+        public override IEnumerator<IPFNode<Vector3>> GetEnumerator()
         {
-            foreach(IPathFindingNode<Vector3> node in nodesGrid)
+            foreach(IPFNode<Vector3> node in nodesGrid)
             {
                 yield return node;
             }
