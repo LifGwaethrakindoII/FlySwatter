@@ -7,10 +7,10 @@ namespace Voidless.AI.PathFinding
 {
     public class PFOctaTreeGrid : PFGraph
     {
-        private OctaTree<PFOTNode> _nodeTree;
+        private OctaTree<PFNode> _nodeTree;
 
         /// <summary>Gets & Sets nodeTree property.</summary>
-        public OctaTree<PFOTNode> nodeTree
+        public OctaTree<PFNode> nodeTree
         {
             get { return _nodeTree; }
             set { _nodeTree = value; }
@@ -20,7 +20,7 @@ namespace Voidless.AI.PathFinding
 
         public PFOctaTreeGrid() : base()
         {
-            nodeTree = new OctaTree<PFOTNode>(default, n => n.boundaries);
+            nodeTree = new OctaTree<PFNode>(default, n => n.boundary);
         }
 
         /// <summary>Draws Gizmos.</summary>
@@ -33,7 +33,7 @@ namespace Voidless.AI.PathFinding
                 Debug.Log("Debug..");
             }
         }
-        public override IEnumerator<IPFNode<Vector3>> GetEnumerator()
+        public override IEnumerator<ISPPFNode<Vector3, Bounds>> GetEnumerator()
         {
             return nodeTree.GetEnumerator();
         }

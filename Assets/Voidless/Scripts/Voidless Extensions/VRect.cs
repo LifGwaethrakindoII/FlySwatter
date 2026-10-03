@@ -7,6 +7,11 @@ namespace Voidless
 {
 	public static class VRect
 	{
+		public static Rect Zero(Vector2 p)
+		{
+			return new Rect(p, Vector2.zero);
+		}
+
 		public static Rect ToRect(this Bounds _bounds)
 		{
 			return FromCenter(_bounds.center, _bounds.size);
@@ -123,12 +128,19 @@ namespace Voidless
 			return result;
 		}
 
-		// Check if a point is within a 2D bounding box (Rect)
-	    public static bool Contains(Rect rect, Vector2 point)
-	    {
-	        return (point.x >= rect.xMin && point.x <= rect.xMax &&
-	                point.y >= rect.yMin && point.y <= rect.yMax);
-	    }
+        // Check if a point is within a 2D bounding box (Rect)
+        public static bool Contains(Rect rect, Vector2 point)
+        {
+            return (point.x >= rect.xMin && point.x <= rect.xMax &&
+                    point.y >= rect.yMin && point.y <= rect.yMax);
+        }
+
+        // Check if a point is within a 2D bounding box (Rect)
+        public static bool Contains(Rect rect, Vector3 point)
+        {
+            return (point.x >= rect.xMin && point.x <= rect.xMax &&
+                    point.y >= rect.yMin && point.y <= rect.yMax);
+        }
 
 	    /// <summary>
 	    /// Checks if Rect 'a' fully contains Rect 'b'.

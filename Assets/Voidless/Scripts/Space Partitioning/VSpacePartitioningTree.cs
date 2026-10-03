@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Voidless.Demos;
+using Voidless.AI.PathFinding;
 
 /*===========================================================================
 **
@@ -85,7 +86,7 @@ namespace Voidless
             return _tree.Contains(x);
         }
         
-        public static QuadTree<T> GenerateFromObjects<T>(Func<T, Rect> getRect, params T[] _objects)
+        public static QuadTree<T> GenerateFromObjects<T>(Func<T, Rect> getRect, params T[] _objects) where T : class
         {
             Rect boundary = VRect.GetRectToFitSet(getRect, _objects);
             QuadTree<T> quadTree = new QuadTree<T>(boundary, getRect);
@@ -93,6 +94,16 @@ namespace Voidless
             quadTree.InsertAll(_objects);
 
             return quadTree;
+        }
+
+        public static Rect GetNodeRect(this IPFNode<Vector2> _node)
+        {
+            return VRect.Zero(_node.data);
+        }
+
+        public static Bounds GetNodeBounds(this IPFNode<Vector3> _node)
+        {
+            return VBounds.Zero(_node.data);
         }
     }
 }

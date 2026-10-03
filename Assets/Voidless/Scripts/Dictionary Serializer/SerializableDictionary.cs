@@ -128,7 +128,57 @@ public class SerializableDictionary<K, V> : Dictionary<K, V>, ISerializationCall
     }
 }
 
-[Serializable] public struct StringArray { public string[] array; }
+[Serializable] public class StringArray : IEnumerable<string>
+{
+    public string[] array;
+
+    /// <summary>Iterates through array.</summary>
+    public IEnumerator<string> GetEnumerator()
+    {
+        foreach(string element in array)
+        {
+            yield return element;
+        }
+    }
+
+    /// <summary>Iterates through array.</summary>
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        yield return GetEnumerator();
+    }
+
+    /// <returns>String representing this Array.</returns>
+    public override string ToString()
+    {
+        return array.CollectionToString();
+    }
+}
+
+[Serializable] public struct StringList : IEnumerable<string>
+{
+    public List<string> list;
+
+    /// <summary>Iterates through list.</summary>
+    public IEnumerator<string> GetEnumerator()
+    {
+        foreach(string element in list)
+        {
+            yield return element;
+        }
+    }
+
+    /// <summary>Iterates through list.</summary>
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        yield return GetEnumerator();
+    }
+
+    /// <returns>String representing this list.</returns>
+    public override string ToString()
+    {
+        return list.CollectionToString();
+    }
+}
 
 /*======================================================================================================================
 |   Char Dictionaries:                                                                                                 |
@@ -144,6 +194,7 @@ public class SerializableDictionary<K, V> : Dictionary<K, V>, ISerializationCall
 [Serializable] public class StringKeyDictionary<V> : SerializableDictionary<string, V> { /*...*/ }
 [Serializable] public class StringStringDictionary : StringKeyDictionary<string> { /*...*/ }
 [Serializable] public class StringStringArrayDictionary : StringKeyDictionary<StringArray> { /*...*/ }
+[Serializable] public class StringStringListDictionary : StringKeyDictionary<StringList> { /*...*/ }
 [Serializable] public class StringBoolDictionary : StringKeyDictionary<bool> { /*...*/ }
 [Serializable] public class StringIntDictionary : StringKeyDictionary<int> { /*...*/ }
 [Serializable] public class StringFloatDictionary : StringKeyDictionary<float> { /*...*/ }

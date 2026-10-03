@@ -31,48 +31,6 @@ namespace Voidless.FlySwatter
 			set { _navigationGrid = value; }
 		}
 
-		public PFOctaTreeGrid ToPathFindingOctaTreeGrid()
-		{
-			Func<PFOTNode, GizmosDrawParameters> g = (n)=>
-			{
-				Color c;
-				GizmosDrawMode m;
-
-				switch (n.traversable)
-				{
-					case true:
-						c = Color.white;
-						m = GizmosDrawMode.Wired;
-					break;
-
-					case false:
-						c = VColor.transparentRed;
-						m = GizmosDrawMode.Solid;
-					break;
-				}
-				return new GizmosDrawParameters(c, m);
-			};
-
-            PFOctaTreeGrid grid = new PFOctaTreeGrid();
-			Collider[] colliders = Physics.OverlapBox(bounds.center, bounds.extents);
-			grid.nodeTree.GetObjectBoundary = b => b.boundaries;
-			grid.nodeTree.boundary = bounds;
-			grid.nodeTree.GetGizmosParemeters = g;
-
-			foreach(Collider collider in colliders)
-			{
-				Bounds bounds = collider.bounds;
-				bool traversable = collider.isTrigger || !collider.gameObject.InsideLayerMask(obstacleMask);
-                PFOTNode node = new PFOTNode(bounds.center, bounds, traversable);
-
-				Debug.Log("Bounds from " + collider.gameObject.name + ": " + bounds.ToString());
-				grid.nodeTree.Insert(node);
-			}
-
-			Debug.Log("Has function? " + grid.nodeTree.GetObjectBoundary != null);
-			return grid;
-        }
-
         public PFGrid ToPathFindingGrid()
 		{
             int width = navigationGrid.GetLength(0);
@@ -87,7 +45,7 @@ namespace Voidless.FlySwatter
                     for (int z = 0; z < depth; z++)
                     {
                         FNNGridCell cell = navigationGrid[x, y, z];
-						PFNode node = new PFNode(cell.position, cell.flyable);
+						PFNode node = new PFNode(cell.position, VBounds.Zero(cell.position), cell.flyable);
 						graph.nodesGrid[x, y, z] = (node);
                     }
                 }

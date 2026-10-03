@@ -5,14 +5,36 @@ using UnityEngine;
 
 namespace Voidless
 {
-    public abstract class SpacePartitioningTree<T, B> : ISpacePartitioningTree<T, B>
+    public abstract class SpacePartitioningTree<T, B> : ISpacePartitioningTree<T, B> where T : class
     {
+        public const int ROOT = -1;
+
+        [SerializeField] private ISpacePartitioningTree<T, B> _parent;
+        [SerializeField] private int _index;
         [SerializeField] protected B _boundary;
         [SerializeField] private bool _subdivided;
         [SerializeField] private HashSet<T> _objects;
+        [SerializeField] private Dictionary<T, List<T>> _neighbors;
         [SerializeField] private ISpacePartitioningTree<T, B>[] _children;
         [SerializeField] private Func<T, B> getObjectBoundary;
         [SerializeField] private Func<T, GizmosDrawParameters> getGizmosParemeters;
+
+        /// <summary>Gets objects' count.</summary>
+        public int Count { get { return objects != null ? objects.Count : 0; } }
+
+        /// <summary>Gets and Sets parent property.</summary>
+        public ISpacePartitioningTree<T, B> parent
+        {
+            get { return _parent; }
+            set { _parent = value; }
+        }
+
+        /// <summary>Gets and Sets index property.</summary>
+        public int index
+        {
+            get { return _index; }
+            set { _index = value; }
+        }
 
         /// <summary>Gets and Sets boundary property.</summary>
         public B boundary
@@ -33,6 +55,13 @@ namespace Voidless
         {
             get { return _objects; }
             set { _objects = value; }
+        }
+
+        /// <summary>Gets and Sets neighbors property.</summary>
+        public Dictionary<T, List<T>> neighbors
+        {
+            get { return _neighbors; }
+            set { _neighbors = value; }
         }
 
         /// <summary>Gets and Sets children property.</summary>
@@ -62,12 +91,26 @@ namespace Voidless
         /// <summary>Gets max object's capacity.</summary>
         public abstract int maxObjectCapacity { get; }
 
-        public SpacePartitioningTree(B _boundary, Func<T, B> getBoundary = null)
+        /// <summary>Default constructor.</summary>
+        public SpacePartitioningTree()
         {
+            subdivided = false;
+            objects = new HashSet<T>();
+            neighbors = new Dictionary<T, List<T>>();
+            children = new ISpacePartitioningTree<T, B>[maxChildCapacity];
+        }
+
+        /// <summary>SpacePArtitioningTree's constructor.</summary>
+        /// <param name="_boundary">Boundary.</param>
+        /// <param name="getBoundary">Boundary function [null by default].</param>
+        /// <param name="_parent">Parent [null by default].</param>
+        /// <param name="_index">Index [Root = -1 by default].</param>
+        public SpacePartitioningTree(B _boundary, Func<T, B> getBoundary = null, ISpacePartitioningTree<T, B> _parent = null, int _index = ROOT) : this()
+        {
+            parent = _parent;
+            index = _index;
             boundary = _boundary;
             GetObjectBoundary = getBoundary;
-            objects = new HashSet<T>();
-            children = new ISpacePartitioningTree<T, B>[maxChildCapacity];
         }
 
         /// <summary>Gets Position.</summary>
@@ -125,12 +168,28 @@ namespace Voidless
         /// <summary>Subdivides Tree.</summary>
         public abstract void Subdivide();
 
+        /// <summary>Calculates distance between 2 objects.</summary>
+        /// <param name="a">Object A.</param>
+        /// <param name="b">Object B.</param>
+        /// <returns>Distance between 2 objects.</returns>
+        public abstract float Distance(T a, T b);
+
         /// <summary>Insertsobject into tree.</summary>
         /// <param name="_object">Object to insert.</param>
         /// <returns>True if object was successfully inserted.</returns>
         public virtual bool Insert(T _object)
         {
-            if(!Contains(_object)) return false;
+            if(!Contains(_object))
+            {
+                Debug.LogWarning("Object not contained within Tree.");
+                return false;
+            }
+
+            if(objects.Contains(_object))
+            {
+                Debug.LogWarning("Object already contained within Tree.");
+                return false;
+            }
 
             if(objects.Count < maxObjectCapacity)
             {
@@ -167,6 +226,16 @@ namespace Voidless
 
             return false;
         }
+
+        /// <summary>Evaluates if point is contained within boundaries.</summary>
+        /// <param name="p">Point in 2D space.</param>
+        /// <returns>True if point is contained within boundaries.</returns>
+        public abstract bool Contains(Vector2 p);
+
+        /// <summary>Evaluates if point is contained within boundaries.</summary>
+        /// <param name="p">Point in 3D space.</param>
+        /// <returns>True if point is contained within boundaries.</returns>
+        public abstract bool Contains(Vector3 p);
 
         /// <summary>Checks if tree, or children, contain provided object.</summary>
         /// <param name="_object">Object to evaluate.</param>
@@ -209,6 +278,84 @@ namespace Voidless
             }
         }
 
+        /// <summary>Gets closest object from given point.</summary>
+        /// <param name="p">Point in 2D Space.</param>
+        /// <returns>Object closest to point.</returns>
+        public T GetClosestObject(Vector2 p)
+        {
+            if (!Contains(p)) return default(T);
+
+            T closest = default(T);
+
+            if (!subdivided)
+            {
+                float minDistance = Mathf.Infinity;
+
+                if (objects != null) foreach (T obj in objects)
+                    {
+                        Vector2 o = GetObjectPosition(obj);
+                        float d = VVector2.SqrDistance(o, p);
+
+                        if (d < minDistance)
+                        {
+                            minDistance = d;
+                            closest = obj;
+                        }
+                    }
+
+                return closest;
+            }
+            else
+            {
+                foreach (ISpacePartitioningTree<T, B> tree in children)
+                {
+                    closest = tree.GetClosestObject(p);
+                    if (closest != null) return closest;
+                }
+            }
+
+            return closest;
+        }
+
+        /// <summary>Gets closest object from given point.</summary>
+        /// <param name="p">Point in 3D Space.</param>
+        /// <returns>Object closest to point.</returns>
+        public T GetClosestObject(Vector3 p)
+        {
+            if (!Contains(p)) return default(T);
+
+            T closest = default(T);
+
+            if (!subdivided)
+            {
+                float minDistance = Mathf.Infinity;
+
+                if (objects != null) foreach (T obj in objects)
+                    {
+                        Vector3 o = GetObjectPosition(obj);
+                        float d = VVector3.SqrDistance(o, p);
+
+                        if (d < minDistance)
+                        {
+                            minDistance = d;
+                            closest = obj;
+                        }
+                    }
+
+                return closest;
+            }
+            else
+            {
+                foreach (ISpacePartitioningTree<T, B> tree in children)
+                {
+                    closest = tree.GetClosestObject(p);
+                    if (closest != null) return closest;
+                }
+            }
+
+            return closest;
+        }
+
         /// <summary>Retrieves all objects within a specific query range.</summary>
         /// <param name="range">Range to query.</param>
         /// <param name="_objects">Reference to List to hold found Bounds.</param>
@@ -234,11 +381,86 @@ namespace Voidless
             return _objects;
         }
 
+        public List<T> GetNeighbors(T _item)
+        {
+            if(!Contains(_item)) return null;
+            
+            List<T> neighbors = null;
+
+            foreach(T obj in objects)
+            {
+                if(obj != null && obj != _item)
+                    neighbors.Add(obj);
+            }
+
+            return neighbors;
+        }
+
+        public SpacePartitioningTree<T, B> GetParent(T _item)
+        {
+            if(!Contains(_item)) return null;
+
+            SpacePartitioningTree<T, B> parent = null;
+
+            return parent;
+        }
+
         /// <summary>Gets Neighbors from given object.</summary>
         /// <param name="_object">Refrence object.</param>
         /// <param name="_distance">Distance Radius.</param>
         /// /// <param name="_neighbors">Reference to List of found neighbors.</param>
-        public abstract List<T> FindNeighbors(T _object, float _distance, ref List<T> _neighbors);
+        public List<T> FindNeighbors(T _object, float _distance, ref List<T> _neighbors)
+        {
+            if (_neighbors == null) _neighbors = new List<T>();
+
+            // First, check the current tree's objects within the specified distance
+            foreach (T obj in objects)
+            {
+                if(obj != _object)
+                {
+                    float dist = Distance(_object, obj);
+                    if (dist <= _distance) _neighbors.Add(obj);
+                }
+            }
+
+            // Now, recursively check children (if subdivided)
+            if (subdivided)
+            {
+                foreach (ISpacePartitioningTree<T, B> child in children)
+                {
+                    if (child != null && child.Contains(_object))
+                    {
+                        child.FindNeighbors(_object, _distance, ref _neighbors);
+                    }
+                }
+            }
+
+            // Finally, check neighboring quadrants, including parent if necessary
+            CheckNeighboringQuadrants(_object, _distance, ref _neighbors);
+            return _neighbors;
+        }
+
+        /// <summary>Check neighboring quadrants and the parent's other children for neighbors.</summary>
+        /// <param name="_object">The object for which to find neighbors.</param>
+        /// <param name="_distance">The distance within which to find neighbors.</param>
+        /// <param name="_neighbors">Reference list to store found neighbors.</param>
+        public void CheckNeighboringQuadrants(T _object, float _distance, ref List<T> _neighbors)
+        {
+            // If the current node has a parent, check the parent's other children (siblings)
+            if (parent != null)
+            {
+                foreach (ISpacePartitioningTree<T, B> sibling in parent.children)
+                {
+                    if (sibling != null && sibling != this)
+                    {
+                        sibling.FindNeighbors(_object, _distance, ref _neighbors);
+                    }
+                }
+
+                // Recursively check the parent's neighbors (grandparent's other children)
+                parent.CheckNeighboringQuadrants(_object, _distance, ref _neighbors);
+            }
+        }
 
         /// <summary>Iterates through objects.</summary>
         /// <returns>Objects' iteration</returns>

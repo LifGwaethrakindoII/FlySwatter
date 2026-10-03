@@ -2,13 +2,22 @@ using System.Collections;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Runtime.InteropServices.WindowsRuntime;
 
 namespace Voidless
 {
     [Serializable]
-    public class OctaTree<T> : SpacePartitioningTree<T, Bounds>
+    public class OctaTree<T> : SpacePartitioningTree<T, Bounds> where T : class
     {
         public const int MAX_POINTSPERNODE = 8;
+        public const int NORTHEASTUP = 0;
+        public const int NORTHWESTUP = 1;
+        public const int SOUTHEASTUP = 2;
+        public const int SOUTHWESTUP = 3;
+        public const int NORTHEASTDOWN = 4;
+        public const int NORTHWESTDOWN = 5;
+        public const int SOUTHEASTDOWN = 6;
+        public const int SOUTHWESTDOWN = 7;
 
         /// <summary>Gets max children's capacity.</summary>
         public override int maxChildCapacity { get { return MAX_POINTSPERNODE; } }
@@ -18,7 +27,7 @@ namespace Voidless
 
         /// <summary>ObjectBoundsOctaTree's constructor.</summary>
         /// <param name="_boundary">BoundsOctaTree's boundaries.</param>
-        public OctaTree(Bounds _boundary, Func<T, Bounds> getBounds = null) : base(_boundary, getBounds) { /*...*/ }
+        public OctaTree(Bounds _boundary, Func<T, Bounds> getBounds = null, ISpacePartitioningTree<T, Bounds> _parent = null, int _index = ROOT) : base(_boundary, getBounds, _parent, _index) { /*...*/ }
 
         /// <summary>Gets Position.</summary>
         /// <param name="p">Position [as Vector3].</param>
@@ -72,6 +81,12 @@ namespace Voidless
         /// <param name="d">Object's dimensions [as Vector2].</param>
         public override Vector2 GetObject2DDimensions(T _object) { return GetObjectBoundary != null ? GetObjectBoundary(_object).size : Vector3.zero; }
 
+        /// <summary>Calculates distance between 2 objects.</summary>
+        /// <param name="a">Object A.</param>
+        /// <param name="b">Object B.</param>
+        /// <returns>Distance between 2 objects.</returns>
+        public override float Distance(T a, T b) { return VVector3.SqrDistance(GetObjectPosition(a), GetObjectPosition(b)); }
+
         /// <summary>Subdivides OctaTree into 4 more sub-OctaTrees.</summary>
         public override void Subdivide()
         {
@@ -80,17 +95,33 @@ namespace Voidless
             Vector3 c = boundary.center;
 
             // Create 8 sub-regions (octants)
-            children[0] = new OctaTree<T>(new Bounds(c + new Vector3(d.x, d.y, d.z), s), GetObjectBoundary);  // NEU
-            children[1] = new OctaTree<T>(new Bounds(c + new Vector3(-d.x, d.y, d.z), s), GetObjectBoundary); // NWU
-            children[2] = new OctaTree<T>(new Bounds(c + new Vector3(d.x, -d.y, d.z), s), GetObjectBoundary); // SEU
-            children[3] = new OctaTree<T>(new Bounds(c + new Vector3(-d.x, -d.y, d.z), s), GetObjectBoundary); // SWU
-            children[4] = new OctaTree<T>(new Bounds(c + new Vector3(d.x, d.y, -d.z), s), GetObjectBoundary);  // NED
-            children[5] = new OctaTree<T>(new Bounds(c + new Vector3(-d.x, d.y, -d.z), s), GetObjectBoundary); // NWD
-            children[6] = new OctaTree<T>(new Bounds(c + new Vector3(d.x, -d.y, -d.z), s), GetObjectBoundary); // SED
-            children[7] = new OctaTree<T>(new Bounds(c + new Vector3(-d.x, -d.y, -d.z), s), GetObjectBoundary); // SWD
+            children[NORTHEASTUP] = new OctaTree<T>(new Bounds(c + new Vector3(d.x, d.y, d.z), s), GetObjectBoundary, this, NORTHEASTUP);  // NEU
+            children[NORTHWESTUP] = new OctaTree<T>(new Bounds(c + new Vector3(-d.x, d.y, d.z), s), GetObjectBoundary, this, NORTHWESTUP); // NWU
+            children[SOUTHEASTUP] = new OctaTree<T>(new Bounds(c + new Vector3(d.x, -d.y, d.z), s), GetObjectBoundary, this, SOUTHEASTUP); // SEU
+            children[SOUTHWESTUP] = new OctaTree<T>(new Bounds(c + new Vector3(-d.x, -d.y, d.z), s), GetObjectBoundary, this, SOUTHWESTUP); // SWU
+            children[NORTHEASTDOWN] = new OctaTree<T>(new Bounds(c + new Vector3(d.x, d.y, -d.z), s), GetObjectBoundary, this, NORTHEASTDOWN);  // NED
+            children[NORTHWESTDOWN] = new OctaTree<T>(new Bounds(c + new Vector3(-d.x, d.y, -d.z), s), GetObjectBoundary, this, NORTHWESTDOWN); // NWD
+            children[SOUTHEASTDOWN] = new OctaTree<T>(new Bounds(c + new Vector3(d.x, -d.y, -d.z), s), GetObjectBoundary, this, SOUTHEASTDOWN); // SED
+            children[SOUTHWESTDOWN] = new OctaTree<T>(new Bounds(c + new Vector3(-d.x, -d.y, -d.z), s), GetObjectBoundary, this, SOUTHWESTDOWN); // SWD
 
             subdivided = true;
             OnAfterSubdivided();
+        }
+
+        /// <summary>Evaluates if point is contained within boundaries.</summary>
+        /// <param name="p">Point in 2D space.</param>
+        /// <returns>True if point is contained within boundaries.</returns>
+        public override bool Contains(Vector2 p)
+        {
+            return boundary.Contains(p);
+        }
+
+        /// <summary>Evaluates if point is contained within boundaries.</summary>
+        /// <param name="p">Point in 3D space.</param>
+        /// <returns>True if point is contained within boundaries.</returns>
+        public override bool Contains(Vector3 p)
+        {
+            return boundary.Contains(p);
         }
 
         /// <summary>Checks if tree, or children, contain provided object.</summary>
@@ -127,29 +158,18 @@ namespace Voidless
             return VBounds.Intersects(a, b);
         }
 
-        /// <summary>Gets Neighbors from given object.</summary>
-        /// <param name="_object">Refrence object.</param>
-        /// <param name="_distance">Distance Radius.</param>
-        /// /// <param name="_neighbors">Reference to List of found neighbors.</param>
-        public override List<T> FindNeighbors(T _object, float _distance, ref List<T> _neighbors)
-        {
-            float d = _distance * 2.0f;
-            Bounds searchArea = new Bounds(GetObjectBoundary(_object).center, new Vector2(d, d));
-            return Query(searchArea, ref _neighbors);
-        }
-
         /// <summary>Draws Gizmos [use on either OnDrawGizmos or OnDrawGizmosSelected].</summary>
         public override void DrawGizmos()
         {
             VGizmos.DrawBounds(boundary);
 
-            if (objects != null)
+            if(objects != null)
             {
                 foreach (T obj in objects)
                 {
                     Bounds boundaries = GetObjectBoundary(obj);
 
-                    if (GetGizmosParemeters != null)
+                    if(GetGizmosParemeters != null)
                     {
                         GizmosDrawParameters parameters = GetGizmosParemeters(obj);
                         Gizmos.color = parameters.color;
@@ -165,14 +185,14 @@ namespace Voidless
                         }
                     }
 
-                    if (boundaries.size.sqrMagnitude > 0.1f) VGizmos.DrawBounds(boundaries);
+                    if(boundaries.size.sqrMagnitude > 0.1f) VGizmos.DrawBounds(boundaries);
                     else Gizmos.DrawSphere(boundaries.center, 0.05f);
                 }
             }
 
-            if (children != null) foreach (OctaTree<T> child in children)
+            if(children != null) foreach (OctaTree<T> child in children)
             {
-                if (child != null) child.DrawGizmos();
+                if(child != null) child.DrawGizmos();
             }
         }
     }

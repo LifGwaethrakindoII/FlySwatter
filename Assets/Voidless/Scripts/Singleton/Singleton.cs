@@ -15,48 +15,48 @@ using UnityEngine;
 ===========================================================================*/
 namespace Voidless
 {
-    public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
+public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
+{
+    private static T _instance;
+
+    [Header("Singleton's Attributes:")]
+    [SerializeField] private bool _dontDestroyOnLoad;
+
+    /// <summary>Gets and Sets dontDestroyOnLoad property.</summary>
+    public bool dontDestroyOnLoad
     {
-        private static T _instance;
-
-        [Header("Singleton's Attributes:")]
-        [SerializeField] private bool _dontDestroyOnLoad;
-
-        /// <summary>Gets and Sets dontDestroyOnLoad property.</summary>
-        public bool dontDestroyOnLoad
-        {
-            get { return _dontDestroyOnLoad; }
-            set { _dontDestroyOnLoad = value; }
-        }
-
-        /// <summary>Gets and Sets Instance property.</summary>
-        public static T Instance
-        {
-            get
-            {
-                // By checking for !Application.isPlaying, I am making sure not to unnecessarily fetch for Instance.
-                if(!Application.isPlaying && _instance == null) _instance = FindObjectOfType<T>();
-                return _instance;
-            }
-            protected set { _instance = value; }
-        }
-
-        /// <summary>Callback invoked when the MonoBehaviour is instantiated.</summary>
-        private void Awake()
-        {
-            if(Instance != null && Instance != this)
-            {
-                Destroy(gameObject);
-
-            } else if(Instance == null)
-            {
-                Instance = FindObjectOfType<T>();
-                if(dontDestroyOnLoad) DontDestroyOnLoad(gameObject);
-                OnAwake();
-            }
-        }
-
-        /// <summary>Callback called on Awake if this Object is the Singleton's Instance.</summary>
-        protected virtual void OnAwake() { /*...*/ }
+        get { return _dontDestroyOnLoad; }
+        set { _dontDestroyOnLoad = value; }
     }
+
+    /// <summary>Gets and Sets Instance property.</summary>
+    public static T Instance
+    {
+        get
+        {
+            // By checking for !Application.isPlaying, I am making sure not to unnecessarily fetch for Instance.
+            if(!Application.isPlaying && _instance == null) _instance = FindObjectOfType<T>();
+            return _instance;
+        }
+        protected set { _instance = value; }
+    }
+
+    /// <summary>Callback invoked when the MonoBehaviour is instantiated.</summary>
+    private void Awake()
+    {
+        if(Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+
+        } else if(Instance == null)
+        {
+            Instance = FindObjectOfType<T>();
+            if(dontDestroyOnLoad) DontDestroyOnLoad(gameObject);
+            OnAwake();
+        }
+    }
+
+    /// <summary>Callback called on Awake if this Object is the Singleton's Instance.</summary>
+    protected virtual void OnAwake() { /*...*/ }
+}
 }

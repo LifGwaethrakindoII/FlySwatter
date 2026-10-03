@@ -2,6 +2,9 @@ using System.Collections;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.VisualScripting;
+using Unity.XR.Oculus;
+using Unity.XR.CoreUtils;
 
 /*===========================================================================
 **
@@ -17,86 +20,59 @@ using UnityEngine;
 namespace Voidless.AI.PathFinding
 {
     [Serializable]
-    public class PFGraph : IPFGraph<Vector3>
+    public class PFGraph : IPFGraph<Vector3, Bounds>
     {
-        [SerializeField] private Dictionary<Vector3, IPFNode<Vector3>> _mapping;
-        [SerializeField] private List<IPFNode<Vector3>> _nodes;
-        [SerializeField] private List<IPFConnection<Vector3>> _connections;
-        [SerializeField] private OctaTree<PFOTNode> _octaTree;
-        
-        /// <summary>Gets and Sets mapping property.</summary>
-        public Dictionary<Vector3, IPFNode<Vector3>> mapping
-        {
-            get { return _mapping; }
-            set { _mapping = value; }
-        }
-
-        /// <summary>Gets and Sets nodes property.</summary>
-        public List<IPFNode<Vector3>> nodes
-        {
-            get { return _nodes; }
-            set { _nodes = value; }
-        }
-
-        /// <summary>Gets and Sets connections property.</summary>
-        public List<IPFConnection<Vector3>> connections
-        {
-            get { return _connections; }
-            set { _connections = value; }
-        }
+        [SerializeField] private OctaTree<PFNode> _octaTree;
 
         /// <summary>Gets and Sets octaTree property.</summary>
-        public OctaTree<PFOTNode> octaTree
+        public OctaTree<PFNode> octaTree
         {
             get { return _octaTree; }
             set { _octaTree = value; }
         }
 
-        public virtual int Count => nodes != null ? nodes.Count : 0;
+        public virtual int Count => octaTree != null ? octaTree.Count : 0;
 
         public bool IsReadOnly => throw new NotImplementedException();
 
         public PFGraph()
         {
-            mapping = new Dictionary<Vector3, IPFNode<Vector3>>();
-            nodes = new List<IPFNode<Vector3>>();
-            connections = new List<IPFConnection<Vector3>>();
+            octaTree = new OctaTree<PFNode>(new Bounds(), PFNode.GetBoundary);
+        }
+
+        public PFGraph(Bounds _boundary, params PFNode[] _nodes) : this()
+        {
+            octaTree = new OctaTree<PFNode>(_boundary, PFNode.GetBoundary);
+        }
+
+        public PFGraph(OctaTree<PFNode> _octaTree)
+        {
+            octaTree = _octaTree;
+        }
+
+        public PFGraph(params PFNode[] _nodes) : this()
+        {
+            Func<PFNode, Bounds> f = PFNode.GetBoundary;
+            Bounds boundary = VBounds.GetBoundsToFitSet(f, _nodes);
+            octaTree = new OctaTree<PFNode>(boundary, f);
         }
 
         /// <summary>Draws Gizmos.</summary>
-        public virtual void DrawGizmos() { /*...*/ }
-
-        public IPFNode<Vector3> GetClosestNode(Vector3 _data)
+        public virtual void DrawGizmos()
         {
-            if(Count == 0)
-            {
-                Debug.Log("Empty Shit...");
-                return null;
-            }
-
-            IPFNode<Vector3> closest = null;
-            float minDistance = Mathf.Infinity;
-            float threshold = 0.04f;
-
-            foreach(IPFNode<Vector3> node in this)
-            {
-                float sqrDistance = VVector3.SqrDistance(_data, node.data);
-                if(sqrDistance < minDistance)
-                {
-                    Debug.Log("Shit's closer");
-                    minDistance = sqrDistance;
-                    closest = node;
-
-                    if(minDistance <= threshold) return closest;
-                }
-            }
-
-            return closest;
+            if(octaTree != null) octaTree.DrawGizmos();
         }
 
-        public virtual IEnumerator<IPFNode<Vector3>> GetEnumerator()
+        public ISPPFNode<Vector3, Bounds> GetClosestNode(Vector3 _data)
         {
-            return nodes.GetEnumerator();
+            if(octaTree == null) return null;
+
+            return octaTree.GetClosestObject(_data);
+        }
+
+        public virtual IEnumerator<ISPPFNode<Vector3, Bounds>> GetEnumerator()
+        {
+            return octaTree.GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
@@ -104,30 +80,94 @@ namespace Voidless.AI.PathFinding
             return GetEnumerator();
         }
 
-        public void Add(IPFNode<Vector3> item)
+        public void Add(ISPPFNode<Vector3, Bounds> item)
         {
-            PFOTNode node = item as PFOTNode;
-            octaTree.Insert(node);
+            if(octaTree == null) return;
+
+            PFNode node = item as PFNode;
+
+            if(node != null) octaTree.Insert(node);
         }
 
         public void Clear()
         {
-            throw new NotImplementedException();
+            if(octaTree != null) octaTree.Clear();
         }
 
-        public bool Contains(IPFNode<Vector3> item)
+        public bool Contains(ISPPFNode<Vector3, Bounds> item)
         {
             throw new NotImplementedException();
         }
 
-        public void CopyTo(IPFNode<Vector3>[] array, int arrayIndex)
+        public void CopyTo(ISPPFNode<Vector3, Bounds>[] array, int arrayIndex)
         {
             throw new NotImplementedException();
         }
 
-        public bool Remove(IPFNode<Vector3> item)
+        public bool Remove(ISPPFNode<Vector3, Bounds> item)
         {
             throw new NotImplementedException();
+        }
+
+        public void UpdateNeighbors()
+        {
+            if(octaTree == null || octaTree.Count == 0) return;
+        
+            foreach(PFNode node in octaTree.objects)
+            {
+                List<PFNode> neighbors = null;
+                octaTree.FindNeighbors(node, node.boundary.extents.MaxComponent() * 1.1f, ref neighbors);
+                
+                //node.neighbors = ;
+            }
+        }
+
+        public static PFGraph ToOctaTreeGraph(Bounds boundary, LayerMask _obstacleMask)
+        {
+            Func<PFNode, GizmosDrawParameters> g = (n) =>
+            {
+                Color c;
+                GizmosDrawMode m;
+
+                switch (n.traversable)
+                {
+                    case true:
+                        c = Color.white;
+                        m = GizmosDrawMode.Wired;
+                        break;
+
+                    case false:
+                        c = VColor.transparentRed;
+                        m = GizmosDrawMode.Solid;
+                        break;
+                }
+                return new GizmosDrawParameters(c, m);
+            };
+
+            OctaTree<PFNode> tree = new OctaTree<PFNode>(boundary, PFNode.GetBoundary);
+            PFGraph grid = new PFGraph(tree);
+            Collider[] colliders = Physics.OverlapBox(boundary.center, boundary.extents);
+            grid.octaTree.GetGizmosParemeters = g;
+
+            foreach(Collider collider in colliders)
+            {
+                Bounds bounds = collider.bounds;
+                bool traversable = collider.isTrigger || !collider.gameObject.InsideLayerMask(_obstacleMask);
+                PFNode node = new PFNode(bounds.center, bounds, traversable);
+                
+                grid.octaTree.Insert(node);
+            }
+
+            foreach(PFNode node in grid.octaTree)
+            {
+                List<PFNode> neighbors = null;
+                grid.octaTree.FindNeighbors(node, 2.0f, ref neighbors);
+                node.AddNeighbors(neighbors.ToArray());
+            }
+
+            Debug.Log("Grid's Boundaries: " + grid.octaTree.boundary.ToString());
+
+            return grid;
         }
     }
 }

@@ -184,12 +184,13 @@ namespace Voidless.AI.PathFinding
             Debug.Log("Got " + count + " neighbors.");
         }
 
-        public override IEnumerator<IPFNode<Vector3>> GetEnumerator()
+        public override IEnumerator<ISPPFNode<Vector3, Bounds>> GetEnumerator()
         {
-            foreach(IPFNode<Vector3> node in nodesGrid)
+            return null;
+            /*foreach(IPFNode<Vector3> node in nodesGrid)
             {
                 yield return node;
-            }
+            }*/
         }
     }
 }

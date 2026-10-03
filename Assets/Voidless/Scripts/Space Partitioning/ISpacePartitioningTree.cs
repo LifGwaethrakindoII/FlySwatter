@@ -15,9 +15,14 @@ namespace Voidless
 {
     public interface ISpacePartitioningTree<T, B> : IEnumerable<T>
     {
+        ISpacePartitioningTree<T, B> parent { get; set; }
+
+        int index { get; set; }
         B boundary { get; set; }
         bool subdivided { get; set; }
+
         HashSet<T> objects { get; set; }
+        Dictionary<T, List<T>> neighbors { get; set; }
         ISpacePartitioningTree<T, B>[] children { get; set; }
         Func<T, B> GetObjectBoundary { get; set; }
         int maxChildCapacity { get; }
@@ -85,6 +90,16 @@ namespace Voidless
         /// <returns>True if object was successfully removed.</returns>
         bool Remove(T _object);
 
+        /// <summary>Evaluates if point is contained within boundaries.</summary>
+        /// <param name="p">Point in 2D space.</param>
+        /// <returns>True if point is contained within boundaries.</returns>
+        bool Contains(Vector2 p);
+
+        /// <summary>Evaluates if point is contained within boundaries.</summary>
+        /// <param name="p">Point in 3D space.</param>
+        /// <returns>True if point is contained within boundaries.</returns>
+        bool Contains(Vector3 p);
+
         /// <summary>Checks if tree, or children, contain provided object.</summary>
         /// <param name="_object">Object to evaluate.</param>
         /// <returns>True if object is contained within tree or children.</returns>
@@ -123,5 +138,23 @@ namespace Voidless
         /// <param name="_distance">Distance Radius.</param>
         /// <param name="_neighbors">Reference to List of found neighbors.</param>
         List<T> FindNeighbors(T _object, float _distance, ref List<T> _neighbors);
+
+        /// <summary>
+        /// Check neighboring quadrants and the parent's other children for neighbors.
+        /// </summary>
+        /// <param name="_object">The object for which to find neighbors.</param>
+        /// <param name="_distance">The distance within which to find neighbors.</param>
+        /// <param name="_neighbors">Reference list to store found neighbors.</param>
+        void CheckNeighboringQuadrants(T _object, float _distance, ref List<T> _neighbors);
+
+        /// <summary>Gets closest object from given point.</summary>
+        /// <param name="p">Point in 2D Space.</param>
+        /// <returns>Object closest to point.</returns>
+        T GetClosestObject(Vector2 p);
+
+        /// <summary>Gets closest object from given point.</summary>
+        /// <param name="p">Point in 3D Space.</param>
+        /// <returns>Object closest to point.</returns>
+        T GetClosestObject(Vector3 p);
     }
 }

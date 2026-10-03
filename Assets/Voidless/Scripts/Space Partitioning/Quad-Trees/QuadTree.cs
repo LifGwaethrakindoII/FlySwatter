@@ -6,9 +6,13 @@ using UnityEngine;
 namespace Voidless
 {
     [Serializable]
-    public class QuadTree<T> : SpacePartitioningTree<T, Rect>
+    public class QuadTree<T> : SpacePartitioningTree<T, Rect> where T : class
     {
         public const int MAX_POINTSPERNODE = 4;
+        public const int NORTHEAST = 0;
+        public const int NORTHWEST = 1;
+        public const int SOUTHEAST = 2;
+        public const int SOUTHWEST = 3;
 
         /// <summary>Gets max children's capacity.</summary>
         public override int maxChildCapacity { get { return MAX_POINTSPERNODE; } }
@@ -18,7 +22,7 @@ namespace Voidless
 
         /// <summary>ObjectRectQuadTree's constructor.</summary>
         /// <param name="_boundary">RectQuadTree's boundaries.</param>
-        public QuadTree(Rect _boundary, Func<T, Rect> getRect = null) : base(_boundary, getRect) { /*...*/ }
+        public QuadTree(Rect _boundary, Func<T, Rect> getRect = null, ISpacePartitioningTree<T, Rect> _parent = null, int _index = ROOT) : base(_boundary, getRect, _parent, _index) { /*...*/ }
 
         /// <summary>Gets Position.</summary>
         /// <param name="p">Position [as Vector3].</param>
@@ -72,6 +76,12 @@ namespace Voidless
         /// <param name="d">Object's dimensions [as Vector2].</param>
         public override Vector2 GetObject2DDimensions(T _object) { return GetObjectBoundary != null ? GetObjectBoundary(_object).size : Vector3.zero; }
 
+        /// <summary>Calculates distance between 2 objects.</summary>
+        /// <param name="a">Object A.</param>
+        /// <param name="b">Object B.</param>
+        /// <returns>Distance between 2 objects.</returns>
+        public override float Distance(T a, T b) { return VVector2.SqrDistance(GetObject2DPosition(a), GetObject2DPosition(b)); }
+
         /// <summary>Subdivides QuadTree into 4 more sub-QuadTrees.</summary>
         public override void Subdivide()
         {
@@ -79,13 +89,29 @@ namespace Voidless
             float hHeight = boundary.height * 0.5f;
             Vector2 c = boundary.center;
 
-            children[0] = new QuadTree<T>(new Rect(c.x, c.y, hWidth, hHeight), GetObjectBoundary); // NE
-            children[1] = new QuadTree<T>(new Rect(c.x - hWidth, c.y, hWidth, hHeight), GetObjectBoundary); // NW
-            children[2] = new QuadTree<T>(new Rect(c.x, c.y - hHeight, hWidth, hHeight), GetObjectBoundary); // SE
-            children[3] = new QuadTree<T>(new Rect(c.x - hWidth, c.y - hHeight, hWidth, hHeight), GetObjectBoundary); // SW
+            children[NORTHEAST] = new QuadTree<T>(new Rect(c.x, c.y, hWidth, hHeight), GetObjectBoundary, this, NORTHEAST); // NE
+            children[NORTHWEST] = new QuadTree<T>(new Rect(c.x - hWidth, c.y, hWidth, hHeight), GetObjectBoundary, this, NORTHWEST); // NW
+            children[SOUTHEAST] = new QuadTree<T>(new Rect(c.x, c.y - hHeight, hWidth, hHeight), GetObjectBoundary, this, SOUTHEAST); // SE
+            children[SOUTHWEST] = new QuadTree<T>(new Rect(c.x - hWidth, c.y - hHeight, hWidth, hHeight), GetObjectBoundary, this, SOUTHWEST); // SW
 
             subdivided = true;
             OnAfterSubdivided();
+        }
+
+        /// <summary>Evaluates if point is contained within boundaries.</summary>
+        /// <param name="p">Point in 2D space.</param>
+        /// <returns>True if point is contained within boundaries.</returns>
+        public override bool Contains(Vector2 p)
+        {
+            return boundary.Contains(p);
+        }
+
+        /// <summary>Evaluates if point is contained within boundaries.</summary>
+        /// <param name="p">Point in 3D space.</param>
+        /// <returns>True if point is contained within boundaries.</returns>
+        public override bool Contains(Vector3 p)
+        {
+            return boundary.Contains(p);
         }
 
         /// <summary>Checks if tree, or children, contain provided object.</summary>
@@ -120,17 +146,6 @@ namespace Voidless
         public override bool Intersects(Rect a, Rect b)
         {
             return VRect.Intersects(a, b);
-        }
-
-        /// <summary>Gets Neighbors from given object.</summary>
-        /// <param name="_object">Refrence object.</param>
-        /// <param name="_distance">Distance Radius.</param>
-        /// /// <param name="_neighbors">Reference to List of found neighbors.</param>
-        public override List<T> FindNeighbors(T _object, float _distance, ref List<T> _neighbors)
-        {
-            float d = _distance * 2.0f;
-            Rect searchArea = new Rect(GetObjectBoundary(_object).center, new Vector2(d, d));
-            return Query(searchArea, ref _neighbors);
         }
 
         /// <summary>Draws Gizmos [use on either OnDrawGizmos or OnDrawGizmosSelected].</summary>

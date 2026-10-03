@@ -9,6 +9,11 @@ namespace Voidless
 {
 	public static class VBounds
 	{
+		public static Bounds Zero(Vector3 p)
+		{
+			return new Bounds(p, Vector3.zero);
+		}
+
 		/// <summary>Iterates through Bounds' Points.</summary>
 		/// <param name="_bounds">Bounds to get the poiunts from.</param>
 		public static IEnumerator<Vector3> GetCornerVertices(this Bounds _bounds)
@@ -36,6 +41,11 @@ namespace Voidless
 				Random.Range(_bounds.min.y, _bounds.max.y),
 				Random.Range(_bounds.min.z, _bounds.max.z)
 			);
+		}
+
+		public static bool Contains(this Bounds _bounds, Vector2 point)
+		{
+			return _bounds.Contains(point);
 		}
 
 		/// <summary>

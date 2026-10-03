@@ -19,7 +19,7 @@ namespace Voidless.FlySwatter
         private IPFNode<Vector3> start;
         private IPFNode<Vector3> end;
         private List<IPFNode<Vector3>> path;
-        private PFOctaTreeGrid treeGrid;
+        private PFGraph pathFindingTree;
 
         /// <summary>Gets networkData property.</summary>
         public FNNData networkData { get { return _networkData; } }
@@ -35,10 +35,9 @@ namespace Voidless.FlySwatter
         /// <summary>Draws Gizmos on Editor mode when FlyingNavigationNetworkManager's instance is selected.</summary>
         private void OnDrawGizmosSelected()
         {
-            if(treeGrid != null)
+            if(pathFindingTree != null)
             {
-                treeGrid.DrawGizmos();
-                Gizmos.DrawCube(Vector3.one, Vector3.one);
+                pathFindingTree.DrawGizmos();
             }
 
             Gizmos.color = Color.magenta;
@@ -61,15 +60,15 @@ namespace Voidless.FlySwatter
         [Button("Generate Pathfinding Octa-Tree")]
         private void GeneratePathFindingOctaTree()
         {
-            treeGrid = networkData.ToPathFindingOctaTreeGrid();
+            pathFindingTree = PFGraph.ToOctaTreeGraph(networkData.bounds, networkData.obstacleMask);
         }
 
         [Button("Test Pathfinding")]
         private void TEST_Pathfinding(Vector3 from, Vector3 to)
         {
             pathfinding = new AStarPathFindingAlgorithm();
-            start = treeGrid.GetClosestNode(from);
-            end = treeGrid.GetClosestNode(to);
+            start = pathFindingTree.GetClosestNode(from);
+            end = pathFindingTree.GetClosestNode(to);
             path = pathfinding.CalculatePath(start, end);
 
             Debug.Log("[FlyingNavigationNetworkManager] Calculated Path Successfully? " + (path != null));
